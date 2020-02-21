@@ -1,0 +1,6 @@
+# Hospital Database
+&ensp;É pretendido modelar uma base de dados para um hospital.  
+&ensp;Sobre o hospital interessa guardar informação sobre os departamentos, os pacientes, a staff do hospital (médicos, enfermeiros, técnicos) e os serviços disponibilizados pelo hospital.  
+&ensp;Cada departamento tem o seu número identificador, a especialização (geral, cardiologia, imunerologia), nome e a entidade responsável pelo departamento.  
+&ensp;Para os pacientes interessa guardar o seu número de identifcação único (número do cartão de cidadão, ou equivalente), nome, morada, telefone, número de beneficiário, histórico de incidentes (consultas, operações, internamentos), médico de familia (para os quais consultas gerais devem ser direcionadas) e médicos espcializados afiliados (para os quais consultas especificas devem ser direcionadas).   
+&ensp;A staff deve ter informação guardada sobre o seu papel no hospital (médico, enfermeiro, técnico), além das suas especialidades. Deve também ser guardado o seu número de identificação único (número de cartão de cidadão, ou equivalente), nome, morada, telefone, código de identificador no hospital e o seu horário de trabalho. Sobre os médicos também interessa guardar informação sobre o seu consultório.
