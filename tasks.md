@@ -1,5 +1,6 @@
 # Tasks
-## UML Modelo Conceptual
+---
+## ***UML Modelo Conceptual***
 ### Classes
 - [x] Hospital  
 - [x] Pacientes  
@@ -17,9 +18,13 @@
 - [x] Internamento
 - [x] Doencas
 - [x] Consultorio
+
 ### Structure
+#### High Priority
 - [ ] Adicionar restrições
 - [x] Organização
-- [ ] Nomear as associações
 - [x] Classificar derivações
 - [x] Multiplicidades
+
+#### Low Priority
+- [ ] Nomear associações
