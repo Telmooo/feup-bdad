@@ -1,0 +1,138 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\documentclass{memoir}
+
+% Margins
+\usepackage[top=3cm,left=2cm,right=2cm,bottom=3cm]{geometry}
+
+% Encondings
+\usepackage[utf8]{inputenc}
+
+% Language
+\usepackage[portuguese]{babel}
+
+% Graphics and images
+\usepackage{graphicx}
+	\graphicspath{{../images/}}
+
+% Tables
+\usepackage{tabularx}
+
+% Paragraph Spacing
+\usepackage{parskip}
+\usepackage{indentfirst}
+\setlength{\parskip}{0.5cm}
+
+% Hyperreferences
+\usepackage{hyperref}
+
+% Repeated commands
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+% Commands
+
+%% Linked Email
+\newcommand{\email}[1]{
+{\texttt{\href{mailto:#1}{#1}} }
+}
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+% Title
+\title{\Huge \texttt{Hospital Database (Parte 1)} }
+
+% Authors
+\author{
+\LARGE \textbf{Grupo 406}\\\\
+\begin{tabular}{l r}
+	\email{up201806538@fe.up.pt} & Henrique Manuel Ruivo Pereira			\\
+	\email{up201801011@fe.up.pt} & Iohan Xavier Sardinha Dutra Soares		\\
+	\email{up201806554@fe.up.pt} & Telmo Alexandre Espirito Santo Baptista	\\
+\end{tabular}
+}
+
+%\institute{Faculdade de Engenharia da Universidade do Porto \\ Bases de Dados (BDAD) - Turma 4, grupo 6}
+
+% Date for the report
+\date{\today}
+
+% Table of Contents
+\addto\captionsportuguese{\renewcommand*\contentsname{Índice}}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	Front Page
+%----------------------------------------------------------------------------------------
+% Title Author and Date
+\maketitle
+
+% More information for front page
+\begin{center}
+\textbf{Projeto BDAD - 2019/20 - MIEIC}
+\Repeat{2}{\linebreak}
+\begin{tabular}{l r}
+	\textbf{Professora das Aulas Laboratorias}: & Carla Alexandra Teixeira Lopes
+\end{tabular}
+\Repeat{4}{\linebreak}
+% FEUP Logo
+\includegraphics[scale=0.4]{FEUP-logo.jpg}
+
+\end{center}
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	ÍNDICE
+%----------------------------------------------------------------------------------------
+\tableofcontents
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	SECTION 1 - Contexto
+%----------------------------------------------------------------------------------------
+\section[Contexto][Contexto]{Contexto}
+É pretendido modelar um base de dados para um hospital com diversos tipos de serviços disponíveis.
+
+Sobre o próprio hospital interessa guardar informação genérica como o seu nome, localização completa (morada, código postal, localidade, etc), e se o hospital é público ou privado.
+
+O hospital é constituído por vários departamentos, cada departamento tem as suas especializações, o nome do departamento, o seu identificador e a entidade responsável pelo departamento.
+
+Staff e pacientes são pessoas o qual interessa saber o nome, seu número de identificação único (cartão de cidadão ou equivalente), localização completa (morada, código postal, localidade, etc), nacionalidade, telefone (contato), número de beneficiário, sexo e data de nascimento.
+
+A entidade responsável por um deparmento é um membro da staff do hospital, podendo este último ser um médico, enfermeiro ou um técnico no hospital. Cada staff tem o seu código identificador no hospital.
+
+Sobre os médicos é necessário guardar o número do seu consultório no hospital (caso tenha) e a sua especialização, caso a tenha.
+Sobre os enfermeiros apenas é necessário guardar a sua especilização, caso a tenha.
+Sobre os técnicos apenas interessa guardar que serviço ofereçem.
+
+O hospital guarda informação sobre os seus pacientes como o seu grupo sanguíneo, o subsistema de saúde ao qual o paciente está associado, as doenças que o paciente tem, o seu médico de familía, os médicos atribuídos naquele hospital,  e as suas admissões no hospital.
+
+Sobre cada doença interessa guardar o seu nome, uma descrição da doença e os seus sintomas.
+Sobre o médico de familía interessa guardar o seu número de identificação único (cartão de cidadão ou equivalente), o seu nome, telefone (contato) e o centro de saúde ao qual está associado.
+
+Uma admissão no hospital tem uma data, se trata-se de uma admissão de urgência e caso seja uma urgência qual a prioridade da urgência. Uma admissão pode desencadear vários tipos de eventos. Cada evento tem uma descrição sobre o que se trata, uma data, e outras informações dependendo do tipo de evento. O tipo de evento pode ser uma consulta, um exame, uma intervenção ou um internamento.
+
+Numa consulta interessa guardar o médico que foi a realizou e o diagnóstico da consulta.\\
+Num exame guarda-se o nome do exame feito e uma descrição do exame realizado.\\
+Numa intervenção guarda-se uma descrição da intervenção realizada.
+Num internamento é necessário guardar o quarto onde o paciente se encontra, o motivo de internamento e a data em qual o paciente recebeu alta (saiu do internamento) caso tal já tenha acontecido.
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	SECTION 2 - UML
+%----------------------------------------------------------------------------------------
+\section[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual}
+\begin{center}
+\includegraphics[width=1.0\linewidth, height=1.0\linewidth]{BDAD-UML.png}
+\end{center}
+
+\end{document}
