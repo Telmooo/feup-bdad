@@ -1,7 +1,7 @@
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
-\documentclass{memoir}
+\documentclass[article, a4paper, 12pt, oneside]{memoir}
 
 % Margins
 \usepackage[top=3cm,left=2cm,right=2cm,bottom=3cm]{geometry}
@@ -33,7 +33,11 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
+% Header and Footer Images
+\usepackage{wallpaper}
+
 % Commands
+\pagestyle{headings}
 
 %% Linked Email
 \newcommand{\email}[1]{
@@ -90,34 +94,39 @@
 \end{center}
 
 \newpage
+% Header Image
+\CenterWallPaper{0.1}{FEUP-logo.jpg}
+\addtolength{\wpXoffset}{-7.5cm}
+\addtolength{\wpYoffset}{13.8cm}
+
 %----------------------------------------------------------------------------------------
 %	ÍNDICE
 %----------------------------------------------------------------------------------------
-\tableofcontents
+\tableofcontents*
 
 \newpage
 %----------------------------------------------------------------------------------------
 %	SECTION 1 - Contexto
 %----------------------------------------------------------------------------------------
-\section[Contexto][Contexto]{Contexto}
+\chapter[Contexto][Contexto]{Contexto}
 É pretendido modelar um base de dados para um hospital com diversos tipos de serviços disponíveis.
 
-Sobre o próprio hospital interessa guardar informação genérica como o seu nome, localização completa (morada, código postal, localidade, etc), e se o hospital é público ou privado.
+Sobre o próprio hospital interessa guardar informação genérica como o seu nome, localização completa (morada, código postal, localidade, etc), telefone (contato), e se o hospital é público ou privado.
 
 O hospital é constituído por vários departamentos, cada departamento tem as suas especializações, o nome do departamento, o seu identificador e a entidade responsável pelo departamento.
 
-Staff e pacientes são pessoas o qual interessa saber o nome, seu número de identificação único (cartão de cidadão ou equivalente), localização completa (morada, código postal, localidade, etc), nacionalidade, telefone (contato), número de beneficiário, sexo e data de nascimento.
+Staff e pacientes e médicos de familía são pessoas o qual interessa saber o nome, seu número de identificação único (cartão de cidadão ou equivalente), localização completa (morada, código postal, localidade, etc), nacionalidade, telefone (contato), número de beneficiário, sexo e data de nascimento.
 
 A entidade responsável por um deparmento é um membro da staff do hospital, podendo este último ser um médico, enfermeiro ou um técnico no hospital. Cada staff tem o seu código identificador no hospital.
 
 Sobre os médicos é necessário guardar o número do seu consultório no hospital (caso tenha) e a sua especialização, caso a tenha.
 Sobre os enfermeiros apenas é necessário guardar a sua especilização, caso a tenha.
 Sobre os técnicos apenas interessa guardar que serviço ofereçem.
+Sobre o médico de familía interessa guardar o centro de saúde ao qual está associado.
 
 O hospital guarda informação sobre os seus pacientes como o seu grupo sanguíneo, o subsistema de saúde ao qual o paciente está associado, as doenças que o paciente tem, o seu médico de familía, os médicos atribuídos naquele hospital,  e as suas admissões no hospital.
 
 Sobre cada doença interessa guardar o seu nome, uma descrição da doença e os seus sintomas.
-Sobre o médico de familía interessa guardar o seu número de identificação único (cartão de cidadão ou equivalente), o seu nome, telefone (contato) e o centro de saúde ao qual está associado.
 
 Uma admissão no hospital tem uma data, se trata-se de uma admissão de urgência e caso seja uma urgência qual a prioridade da urgência. Uma admissão pode desencadear vários tipos de eventos. Cada evento tem uma descrição sobre o que se trata, uma data, e outras informações dependendo do tipo de evento. O tipo de evento pode ser uma consulta, um exame, uma intervenção ou um internamento.
 
@@ -130,7 +139,7 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 %----------------------------------------------------------------------------------------
 %	SECTION 2 - UML
 %----------------------------------------------------------------------------------------
-\section[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual}
+\chapter[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual}
 \begin{center}
 \includegraphics[width=1.0\linewidth, height=1.0\linewidth]{BDAD-UML.png}
 \end{center}
