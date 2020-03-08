@@ -15,6 +15,7 @@
 % Graphics and images
 \usepackage{graphicx}
 	\graphicspath{{../images/}}
+\usepackage[export]{adjustbox}
 
 % Tables
 \usepackage{tabularx}
@@ -37,10 +38,11 @@
 \usepackage{wallpaper}
 \usepackage{fancyhdr}
 
+% Following code to edit the pagestyle
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{Hospital Database}
-\lhead{\nameref{\thechapter}}
+\lhead{\leftmark}
 \rfoot{Página \thepage}
 
 % Commands
@@ -51,36 +53,11 @@
 {\texttt{\href{mailto:#1}{#1}} }
 }
 
-%% New Chapter with Label
-\newcommandx{\newchapter}[3][1=\empty, 2=\empty]{
-	\def\opto{#1}
-	\def\optt{#2}
-	\def\var{#3}
-	\show\opto
-	\show\optt
-	\show\var
-    \if\noexpand\optt\noexpand\empty
-    	\show\opto
-    	\if\noexpand\opto\noexpand\empty
-    		\def\opto\var
-    		\def\optt\var
-    		\texttt{\opto \optt \var}
-    	\else
-    		\def\optt\opto
-    		\texttt{\opto \optt \var}
-    \else
-    	%\show\opto
-    	\texttt{\opto \optt \var}
-    \fi
-}
-
-
 %----------------------------------------------------------------------------------------
 %	DOCUMENT INFORMATION
 %----------------------------------------------------------------------------------------
 % Title
 \title{\Huge \texttt{Hospital Database (Parte 1)} }
-
 % Authors
 \author{
 \LARGE \textbf{Grupo 406}\\\\
@@ -103,7 +80,6 @@
 %	DOCUMENT
 %----------------------------------------------------------------------------------------
 \begin{document}
-\newchapter[test1][test2]{test3}
 %----------------------------------------------------------------------------------------
 %	Front Page
 %----------------------------------------------------------------------------------------
@@ -161,8 +137,8 @@ Sobre cada doença interessa guardar o seu nome, uma descrição da doença e os
 
 Uma admissão no hospital tem uma data, se se trata de uma admissão de urgência e, caso seja uma urgência, a prioridade desta. Uma admissão pode desencadear vários tipos de eventos. Cada evento tem uma descrição sobre do que se trata, uma data, e outras informações dependendo do tipo de evento, que pode corresponder a: uma consulta, um exame, uma intervenção ou um internamento.
 
-Numa consulta, interessa guardar o médico que a realizou e o diagnóstico da consulta.\\
-Num exame, guarda-se o nome do exame feito e uma descrição deste.\\
+Numa consulta, interessa guardar o médico que a realizou e o diagnóstico da consulta.
+Num exame, guarda-se o nome do exame feito e uma descrição deste.
 Numa intervenção, guarda-se uma descrição da intervenção realizada.
 Num internamento é necessário guardar o quarto onde o paciente se encontra, o motivo do internamento e a data na qual o paciente recebeu alta (saiu do internamento) caso tal já tenha acontecido.
 
@@ -171,8 +147,7 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 %	SECTION 2 - UML
 %----------------------------------------------------------------------------------------
 \chapter[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual} \label{\thechapter}
-\begin{center}
-\includegraphics[width=1.0\linewidth, height=1.0\linewidth]{BDAD-UML.png}
-\end{center}
-
+%\begin{center}
+\hspace*{-1.3cm}\includegraphics[width=1.1\linewidth, height=1.0\linewidth]{BDAD-UML.png}
+%\end{center}
 \end{document}
