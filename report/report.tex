@@ -33,15 +33,45 @@
 \cs_new_eq:NN \Repeat \prg_replicate:nn
 \ExplSyntaxOff
 
-% Header and Footer Images
+% Header and Footer Things
 \usepackage{wallpaper}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Hospital Database}
+\lhead{\nameref{\thechapter}}
+\rfoot{Página \thepage}
 
 % Commands
-\pagestyle{headings}
+\usepackage{xargs}
 
 %% Linked Email
 \newcommand{\email}[1]{
 {\texttt{\href{mailto:#1}{#1}} }
+}
+
+%% New Chapter with Label
+\newcommandx{\newchapter}[3][1=\empty, 2=\empty]{
+	\def\opto{#1}
+	\def\optt{#2}
+	\def\var{#3}
+	\show\opto
+	\show\optt
+	\show\var
+    \if\noexpand\optt\noexpand\empty
+    	\show\opto
+    	\if\noexpand\opto\noexpand\empty
+    		\def\opto\var
+    		\def\optt\var
+    		\texttt{\opto \optt \var}
+    	\else
+    		\def\optt\opto
+    		\texttt{\opto \optt \var}
+    \else
+    	%\show\opto
+    	\texttt{\opto \optt \var}
+    \fi
 }
 
 
@@ -73,7 +103,7 @@
 %	DOCUMENT
 %----------------------------------------------------------------------------------------
 \begin{document}
-
+\newchapter[test1][test2]{test3}
 %----------------------------------------------------------------------------------------
 %	Front Page
 %----------------------------------------------------------------------------------------
@@ -108,7 +138,7 @@
 %----------------------------------------------------------------------------------------
 %	SECTION 1 - Contexto
 %----------------------------------------------------------------------------------------
-\chapter[Contexto][Contexto]{Contexto}
+\chapter[Contexto][Contexto]{Contexto} \label{\thechapter}
 É pretendido modelar um base de dados para um hospital com diversos tipos de serviços disponíveis.
 
 Sobre o próprio hospital interessa guardar informação genérica como o seu nome, localização completa (morada, código postal, localidade, etc), telefone (contato), e se o hospital é público ou privado.
@@ -139,7 +169,7 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 %----------------------------------------------------------------------------------------
 %	SECTION 2 - UML
 %----------------------------------------------------------------------------------------
-\chapter[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual}
+\chapter[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual} \label{\thechapter}
 \begin{center}
 \includegraphics[width=1.0\linewidth, height=1.0\linewidth]{BDAD-UML.png}
 \end{center}
