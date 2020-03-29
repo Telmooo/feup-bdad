@@ -146,7 +146,79 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 %	SECTION 2 - UML
 %----------------------------------------------------------------------------------------
 \chapter[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual} \label{\thechapter}
-%\begin{center}
 \hspace*{-1.3cm}\includegraphics[width=1.1\linewidth, height=1.0\linewidth]{BDAD-UML.png}
-%\end{center}
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	SECTION 3 - Relational Model
+%----------------------------------------------------------------------------------------
+\chapter[Modelo Relacional][Modelo Relacional]{Modelo Relacional} \label{\thechapter}
+
+\section{Classes}
+\subsection{Classe Pessoa}
+\begin{itemize}
+	\item Pessoa(\underline{NumIdentificacao}, Nome, Morada, Localidade, CodigoPostal, Cidade, Pais, Telefone, NumeroBeneficiario, Sexo, DataNascimento)
+\end{itemize}
+\subsubsection{Classe Staff}
+\begin{itemize}
+	\item Staff(\underline{PessoaID}$\rightarrow$Pessoa, \underline{CodigoIdentificacao}, Especializacao$\rightarrow$Especializacao)
+	\item Enfermeiro(\underline{StaffID}$\rightarrow$Staff)
+	\item Tecnico(\underline{StaffID}$\rightarrow$Staff)
+	\item Medico(\underline{StaffID}$\rightarrow$Staff, Consultorio$\rightarrow$Quarto)
+	\item Especializacao(\underline{Nome}, Departamento$\rightarrow$Departamento)
+	\item Horario(\underline{HorarioID}, DiaSemana, HoraInicio, HoraFim)
+	\item Departamento(\underline{NumIdentificador}, Nome, Responsavel$\rightarrow$Staff)
+\end{itemize}
+\subsubsection{Classe Paciente}
+\begin{itemize}
+	\item Paciente(\underline{PessoaID}$\rightarrow$Pessoa, GrupoSanguineo, SubsistemaSaude$\rightarrow$SubsistemaSaude)
+	\item SubsistemaSaude(\underline{Nome})
+\end{itemize}
+\subsection{Classe Evento}
+\begin{itemize}
+	\item Admissao(\underline{AdmissaoID}, Data, Urgencia, Prioridade, Paciente$\rightarrow$Paciente)
+	\item Doenca(\underline{Nome}, Descricao, Sintomas)
+	\item Ocorrrencia(\underline{OcorrenciaID}, DataInicio, DataFim, Paciente$\rightarrow$Paciente, Doenca$\rightarrow$Doenca)
+	\item Quarto(\underline{Numero})
+	\item Evento(\underline{EventoID}, Descricao, Data, Admissao$\rightarrow$Admissao, Quarto$\rightarrow$Quarto)
+	\begin{itemize}
+		\item Intervencao(\underline{EventoID}$\rightarrow$Evento, Descricao)
+		\item Exame(\underline{EventoID}$\rightarrow$Evento, Nome, Descricao)
+		\item Consulta(\underline{EventoID}$\rightarrow$Evento, Diagnostico, Medico$\rightarrow$Medico)
+		\item Internamento(\underline{EventoID}$\rightarrow$Evento, Motivo, DataFim, Ativo)
+	\end{itemize}
+\end{itemize}
+
+\section{Associações}
+\subsection{Associações muitos-para-muitos}
+Associações relativas à classe Staff:
+\begin{itemize}
+	\item HorarioTrabalho(\underline{StaffID}$\rightarrow$Staff, \underline{HorarioID}$\rightarrow$Horario)
+\end{itemize}
+
+Associações relativas à classe Paciente:
+\begin{itemize}
+	\item MedicoAtribuido(\underline{PacienteID}$\rightarrow$Paciente, \underline{MedicoID}$\rightarrow$Medico)
+\end{itemize}
+
+Associações relativas à classe Evento:
+\begin{itemize}
+	\item EnfermeiroInterv(\underline{EnfermeiroID}$\rightarrow$Enfermeiro, \underline{IntervID}$\rightarrow$Intervencao)
+	\item EnfermeiroExame(\underline{EnfermeiroID}$\rightarrow$Enfermeiro, \underline{ExameID}$\rightarrow$Exame)
+	\item TecnicoInterv(\underline{TecnicoID}$\rightarrow$Tecnico, \underline{IntervID}$\rightarrow$Intervencao)
+	\item TecnicoExame(\underline{TecnicoID}$\rightarrow$Tecnico, \underline{ExameID}$\rightarrow$Exame)
+	\item MedicoInterv(\underline{MedicoID}$\rightarrow$Medico, \underline{IntervID}$\rightarrow$Intervencao)
+	\item MedicoExame(\underline{MedicoID}$\rightarrow$Medico, \underline{ExameID}$\rightarrow$Exame)
+	\item OcorrenciaEvento(\underline{OcorrenciaID}$\rightarrow$Ocorrencia, \underline{EventoID}$\rightarrow$Evento)
+\end{itemize}
+
+\subsection{Associações muitos-para-um}
+Para este tipo de associações foi adotado o método de adicionar uma chave estrangeira para a relação "um" na relação "muitos".
+
+\subsection{Associações um-para-um}
+Para este tipo de associações foi adicionado uma chave estrangeira à relação que possuirá o menor número de tuplos, exceto nos casos em que essa relação poder ter esse elemento como nulo, nos casos em que ambos podem ser nulos, 
+
+\section{Generalizações}
+Quanto as generalizações, optou-se por usar o método E/R, criando uma relação para cada classe, e adicionando a chave da super-classe às subclasses.
+
 \end{document}
