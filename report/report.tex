@@ -105,13 +105,13 @@
 \addtolength{\wpYoffset}{13.8cm}
 
 %----------------------------------------------------------------------------------------
-%	ÍNDICE
+%	TABLE OF CONTENTS
 %----------------------------------------------------------------------------------------
 \tableofcontents*
 
 \newpage
 %----------------------------------------------------------------------------------------
-%	SECTION 1 - Contexto
+%	CHAPTER 1 - Contexto
 %----------------------------------------------------------------------------------------
 \chapter[Contexto][Contexto]{Contexto} \label{\thechapter}
 É pretendido modelar uma base de dados para um hospital com diversos tipos de serviços disponíveis.
@@ -143,14 +143,14 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 
 \newpage
 %----------------------------------------------------------------------------------------
-%	SECTION 2 - UML
+%	CHAPTER 2 - UML
 %----------------------------------------------------------------------------------------
 \chapter[UML - Modelo Conceptual][UML]{UML - Modelo Conceptual} \label{\thechapter}
 \hspace*{-1.3cm}\includegraphics[width=1.1\linewidth, height=1.0\linewidth]{BDAD-UML.png}
 
 \newpage
 %----------------------------------------------------------------------------------------
-%	SECTION 3 - Relational Model
+%	CHAPTER 3 - Relational Model
 %----------------------------------------------------------------------------------------
 \chapter[Modelo Relacional][Modelo Relacional]{Modelo Relacional} \label{\thechapter}
 
@@ -162,9 +162,11 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 \subsubsection{Classe Staff}
 \begin{itemize}
 	\item Staff(\underline{PessoaID}$\rightarrow$Pessoa, \underline{CodigoIdentificacao}, Especializacao$\rightarrow$Especializacao)
-	\item Enfermeiro(\underline{StaffID}$\rightarrow$Staff)
-	\item Tecnico(\underline{StaffID}$\rightarrow$Staff)
-	\item Medico(\underline{StaffID}$\rightarrow$Staff, Consultorio$\rightarrow$Quarto)
+	\begin{itemize}
+		\item Enfermeiro(\underline{StaffID}$\rightarrow$Staff)
+		\item Tecnico(\underline{StaffID}$\rightarrow$Staff)
+		\item Medico(\underline{StaffID}$\rightarrow$Staff, Consultorio$\rightarrow$Quarto)
+	\end{itemize}
 	\item Especializacao(\underline{Nome}, Departamento$\rightarrow$Departamento)
 	\item Horario(\underline{HorarioID}, DiaSemana, HoraInicio, HoraFim)
 	\item Departamento(\underline{NumIdentificador}, Nome, Responsavel$\rightarrow$Staff)
@@ -220,5 +222,72 @@ Para este tipo de associações foi adicionado uma chave estrangeira à relaçã
 
 \section{Generalizações}
 Quanto as generalizações, optou-se por usar o método E/R, criando uma relação para cada classe, e adicionando a chave da super-classe às subclasses.
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	CHAPTER 4 - Analysis of Functional Dependencies and Normal Forms
+%----------------------------------------------------------------------------------------
+\chapter[Análise de FDs e FNs][Análise de FDs e FNs]{Análise de Dependências Funcionais e Formas Normais} \label{\thechapter}
+
+\section{Classes}
+\subsection{Pessoa}
+
+
+\section{Associações}
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	CHAPTER 5 - Restrictions
+%----------------------------------------------------------------------------------------
+\chapter[Restrições][Restrições]{Restrições} \label{\thechapter}
+
+\section*{Pessoa}
+\begin{itemize}
+	\item cada pessoa tem um número de identificação único (\textbf{PRIMARY KEY})
+	\item cada pessoa deve ter um nome, morada, localidade, código postal, cidade, país, número beneficiário, sexo e data nascimento (\textbf{NOT NULL})
+	\item o números de telefone devem ser únicos (\textbf{UNIQUE})
+\end{itemize}
+
+\section*{Staff}
+\begin{itemize}
+	\item cada membro da staff tem um código identificação único, além do número de identificação único (\textbf{PRIMARY KEY})
+	\item além disso, número de identificação (\textbf{PessoaID}) é chave estrangeira para Pessoa (\textbf{REFERENCES})
+	\item não é possível eliminar uma pessoa enquanto houver staff mapeada para essa pessoa, mas pode-se alterar a pessoa que alterará na staff que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item Especializacao é chave estrangeira para Especializacao, e tal será posta a \textbf{NULL} caso a Especializacao seja eliminada, em caso de alterações, as alterações seram feitas em toda a staff que mapeia essa especialização (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\subsubsection*{Enfermeiro}
+\begin{itemize}
+	\item cada enfermeiro tem o seu código de identificação (\textbf{StaffID}) que é chave estrangeira para Staff
+	\item não é possível eliminar um membro da staff enquanto houver um enfermeiro mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no enfermeiro que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item além disso, este código de identificação deve ser único (\textbf{PRIMARY KEY})
+\end{itemize}
+
+\newpage
+
+\subsubsection*{Tecnico}
+\begin{itemize}
+	\item cada técnico tem o seu código de identificação (\textbf{StaffID}) que é chave estrangeira para Staff
+	\item não é possível eliminar um membro da staff enquanto houver um técnico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no técnico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item além disso, este código de identificação deve ser único (\textbf{PRIMARY KEY})
+\end{itemize}
+
+\subsubsection*{Medico}
+\begin{itemize}
+	\item cada médico tem o seu código de identificação (\textbf{StaffID}) que é chave estrangeira para Staff
+	\item não é possível eliminar um membro da staff enquanto houver um médico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no médico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item além disso, este código de identificação deve ser único (\textbf{PRIMARY KEY})
+\end{itemize}
+
+\section*{Especializacao}
+\begin{itemize}
+	\item cada especialização deve ter um nome único (\textbf{PRIMARY KEY})
+	\item Departamento é chave estrangeira para Departamento
+\end{itemize}
+
+\section*{Horario}
+\begin{itemize}
+	\item cada horário tem um ID único (\textbf{PRIMARY KEY})
+\end{itemize}
 
 \end{document}
