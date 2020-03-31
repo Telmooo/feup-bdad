@@ -157,29 +157,29 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 \section{Classes}
 \subsection{Classe Pessoa}
 \begin{itemize}
-	\item Pessoa(\underline{NumIdentificacao}, Nome, Morada, Localidade, CodigoPostal, Cidade, Pais, Telefone, NumeroBeneficiario, Sexo, DataNascimento)
+	\item Pessoa(\underline{PessoaID}, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento)
 \end{itemize}
 \subsubsection{Classe Staff}
 \begin{itemize}
-	\item Staff(\underline{PessoaID}$\rightarrow$Pessoa, \underline{CodigoIdentificacao}, Especializacao$\rightarrow$Especializacao)
+	\item Staff(\underline{PessoaID}$\rightarrow$Pessoa, CodigoIdentificacao, Especializacao$\rightarrow$Especializacao)
 	\begin{itemize}
 		\item Enfermeiro(\underline{StaffID}$\rightarrow$Staff)
 		\item Tecnico(\underline{StaffID}$\rightarrow$Staff)
 		\item Medico(\underline{StaffID}$\rightarrow$Staff, Consultorio$\rightarrow$Quarto)
 	\end{itemize}
-	\item Especializacao(\underline{Nome}, Departamento$\rightarrow$Departamento)
+	\item Especializacao(\underline{EspecializacaoID}, Nome, Departamento$\rightarrow$Departamento)
 	\item Horario(\underline{HorarioID}, DiaSemana, HoraInicio, HoraFim)
 	\item Departamento(\underline{NumIdentificador}, Nome, Responsavel$\rightarrow$Staff)
 \end{itemize}
 \subsubsection{Classe Paciente}
 \begin{itemize}
 	\item Paciente(\underline{PessoaID}$\rightarrow$Pessoa, GrupoSanguineo, SubsistemaSaude$\rightarrow$SubsistemaSaude)
-	\item SubsistemaSaude(\underline{Nome})
+	\item SubsistemaSaude(\underline{SubsistemaSaudeID}, Nome)
 \end{itemize}
 \subsection{Classe Evento}
 \begin{itemize}
 	\item Admissao(\underline{AdmissaoID}, Data, Urgencia, Prioridade, Paciente$\rightarrow$Paciente)
-	\item Doenca(\underline{Nome}, Descricao, Sintomas)
+	\item Doenca(\underline{DoencaID}, Nome, Descricao, Sintomas)
 	\item Ocorrrencia(\underline{OcorrenciaID}, DataInicio, DataFim, Paciente$\rightarrow$Paciente, Doenca$\rightarrow$Doenca)
 	\item Quarto(\underline{Numero})
 	\item Evento(\underline{EventoID}, Descricao, Data, Admissao$\rightarrow$Admissao, Quarto$\rightarrow$Quarto)
@@ -221,19 +221,140 @@ Para este tipo de associações foi adotado o método de adicionar uma chave est
 Para este tipo de associações foi adicionado uma chave estrangeira à relação que possuirá o menor número de tuplos, exceto nos casos em que essa relação poder ter esse elemento como nulo, nos casos em que ambos podem ser nulos, 
 
 \section{Generalizações}
-Quanto as generalizações, optou-se por usar o método E/R, criando uma relação para cada classe, e adicionando a chave da super-classe às subclasses.
+Quanto as generalizações, optou-se por usar o método E/R, criando uma relação para cada classe, e adicionando a chave da super-classe às subclasses, devido às restrições que necessitam ser implementadas nestas classes.
 
 \newpage
 %----------------------------------------------------------------------------------------
 %	CHAPTER 4 - Analysis of Functional Dependencies and Normal Forms
 %----------------------------------------------------------------------------------------
-\chapter[Análise de FDs e FNs][Análise de FDs e FNs]{Análise de Dependências Funcionais e Formas Normais} \label{\thechapter}
+\chapter[Análise de DFs e FNs][Análise de FDs e FNs]{Análise de Dependências Funcionais e Formas Normais} \label{\thechapter}
 
-\section{Classes}
-\subsection{Pessoa}
+\section*{Pessoa}
+\begin{itemize}
+	\item PessoaID$\rightarrow$NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento
+	\item NumIdentificacao$\rightarrow$PessoaID, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento
+	\item Telefone$\rightarrow$PessoaID, NumIdentificacao, Nome, Morada, NumeroBeneficiario, Sexo, DataNascimento
+	\item NumeroBeneficiario$\rightarrow$PessoaID, NumIdentificacao, Nome, Morada, Telefone, Sexo, DataNascimento
+\end{itemize}
 
+\section*{Staff}
+\begin{itemize}
+	\item PessoaID$\rightarrow$CodigoIdentificacao, Especializacao
+	\item CodigoIdentificacao$\rightarrow$PessoaID, Especializacao
+\end{itemize}
 
-\section{Associações}
+\section*{Enfermeiro}
+Não tem dependências funcionais
+
+\section*{Tecnico}
+Não tem dependências funcionais
+
+\section*{Medico}
+\begin{itemize}
+	\item StaffID$\rightarrow$Consultorio
+	\item Consultorio$\rightarrow$StaffID
+\end{itemize}
+
+\section*{Especializacao}
+\begin{itemize}
+	\item EspecializacaoID$\rightarrow$Nome, Departamento
+	\item Nome$\rightarrow$EspecializacaoID, Departamento
+\end{itemize}
+
+\section*{Horario}
+\begin{itemize}
+	\item HorarioID$\rightarrow$DiaSemana, HoraInicio, HoraFim
+\end{itemize}
+
+\section*{Departamento}
+\begin{itemize}
+	\item NumIdentificador$\rightarrow$Nome, Responsavel
+	\item Responsavel$\rightarrow$NumIdentificador, Nome
+\end{itemize}
+
+\section*{Paciente}
+\begin{itemize}
+	\item PessoaID$\rightarrow$GrupoSanguineo, SubsistemaSaude
+\end{itemize}
+
+\section*{SubsistemaSaude}
+\begin{itemize}
+	\item SubsistemaSaudeID$\rightarrow$Nome
+	\item Nome$\rightarrow$SubsistemaSaudeID
+\end{itemize}
+
+\section*{Admissao}
+\begin{itemize}
+	\item AdmissaoID$\rightarrow$Data, Urgencia, Prioridade, Paciente
+	\item Data, Paciente$\rightarrow$AdmissaoID, Urgencia, Prioridade
+\end{itemize}
+
+\section*{Doenca}
+\begin{itemize}
+	\item DoencaID$\rightarrow$Nome, Descricao, Sintomas
+	\item Nome$\rightarrow$DoencaID, Descricao, Sintomas
+\end{itemize}
+
+\section*{Ocorrencia}
+\begin{itemize}
+	\item OcorrenciaID$\rightarrow$DataInicio, DataFim, Paciente, Doenca
+	\item DataInicio, Paciente, Doenca$\rightarrow$OcorrenciaID, DataFim
+\end{itemize}
+
+\section*{Quarto}
+Não tem dependências funcionais.
+
+\section*{Evento}
+\begin{itemize}
+	\item EventoID$\rightarrow$Descricao, Data, Admissao, Quarto
+\end{itemize}
+
+\section*{Intervencao}
+\begin{itemize}
+	\item EventoID$\rightarrow$Descricao
+\end{itemize}
+
+\section*{Exame}
+\begin{itemize}
+	\item EventoID$\rightarrow$Nome, Descricao
+\end{itemize}
+
+\section*{Consulta}
+\begin{itemize}
+	\item EventoID$\rightarrow$Diagnostico, Medico
+\end{itemize}
+
+\section*{Internamento}
+\begin{itemize}
+	\item EventoID$\rightarrow$Motivo, DataFim, Ativo
+\end{itemize}
+
+\section*{HorarioTrabalho}
+Não tem dependências funcionais.
+
+\section*{MedicoAtribuido}
+Não tem dependências funcionais.
+
+\section*{EnfermeiroInterv}
+Não tem dependências funcionais.
+
+\section*{EnfermeiroExame}
+Não tem dependências funcionais.
+
+\section*{TecnicoInterv}
+Não tem dependências funcionais.
+
+\section*{TecnicoExame}
+Não tem dependências funcionais.
+
+\section*{MedicoInterv}
+Não tem dependências funcionais.
+
+\section*{MedicoExame}
+Não tem dependências funcionais.
+
+\section*{OcorrenciaEvento}
+Não tem dependências funcionais.
 
 \newpage
 %----------------------------------------------------------------------------------------
@@ -243,51 +364,217 @@ Quanto as generalizações, optou-se por usar o método E/R, criando uma relaç�
 
 \section*{Pessoa}
 \begin{itemize}
-	\item cada pessoa tem um número de identificação único (\textbf{PRIMARY KEY})
-	\item cada pessoa deve ter um nome, morada, localidade, código postal, cidade, país, número beneficiário, sexo e data nascimento (\textbf{NOT NULL})
-	\item o números de telefone devem ser únicos (\textbf{UNIQUE})
+	\item cada pessoa tem um ID único (\textbf{PRIMARY KEY})
+	\item cada pessoa deve ter um número de identificação, nome, morada, número beneficiário, sexo e data nascimento (\textbf{NOT NULL})
+	\item o número de identificação, número benificiário e telefone devem ser únicos (\textbf{UNIQUE})
 \end{itemize}
 
 \section*{Staff}
 \begin{itemize}
-	\item cada membro da staff tem um código identificação único, além do número de identificação único (\textbf{PRIMARY KEY})
-	\item além disso, número de identificação (\textbf{PessoaID}) é chave estrangeira para Pessoa (\textbf{REFERENCES})
+	\item cada membro da staff tem um ID único (\textbf{PRIMARY KEY})
+	\item além disso, PessoaID é chave estrangeira para Pessoa (\textbf{REFERENCES})
 	\item não é possível eliminar uma pessoa enquanto houver staff mapeada para essa pessoa, mas pode-se alterar a pessoa que alterará na staff que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item Especializacao é chave estrangeira para Especializacao, e tal será posta a \textbf{NULL} caso a Especializacao seja eliminada, em caso de alterações, as alterações seram feitas em toda a staff que mapeia essa especialização (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
 \subsubsection*{Enfermeiro}
 \begin{itemize}
-	\item cada enfermeiro tem o seu código de identificação (\textbf{StaffID}) que é chave estrangeira para Staff
+	\item cada enfermeiro tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
 	\item não é possível eliminar um membro da staff enquanto houver um enfermeiro mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no enfermeiro que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
-	\item além disso, este código de identificação deve ser único (\textbf{PRIMARY KEY})
+	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
 \end{itemize}
 
 \newpage
 
 \subsubsection*{Tecnico}
 \begin{itemize}
-	\item cada técnico tem o seu código de identificação (\textbf{StaffID}) que é chave estrangeira para Staff
+	\item cada técnico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
 	\item não é possível eliminar um membro da staff enquanto houver um técnico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no técnico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
-	\item além disso, este código de identificação deve ser único (\textbf{PRIMARY KEY})
+	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
 \end{itemize}
 
 \subsubsection*{Medico}
 \begin{itemize}
-	\item cada médico tem o seu código de identificação (\textbf{StaffID}) que é chave estrangeira para Staff
+	\item cada médico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
 	\item não é possível eliminar um membro da staff enquanto houver um médico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no médico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
-	\item além disso, este código de identificação deve ser único (\textbf{PRIMARY KEY})
+	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
+	\item o consultório deve ser único (\textbf{UNIQUE})
 \end{itemize}
 
 \section*{Especializacao}
 \begin{itemize}
-	\item cada especialização deve ter um nome único (\textbf{PRIMARY KEY})
+	\item cada especialização deve ter um ID único (\textbf{PRIMARY KEY})
+	\item nome da especialização deve ser único e não nulo (\textbf{NOT NULL} e \textbf{UNIQUE})
 	\item Departamento é chave estrangeira para Departamento
 \end{itemize}
 
 \section*{Horario}
 \begin{itemize}
 	\item cada horário tem um ID único (\textbf{PRIMARY KEY})
+	\item cada horário deve ter um dia da semana em qual está incidido, uma hora de ínicio e uma hora de fim (\textbf{NOT NULL})
+	\item A hora de ínicio deve ser antes da hora de fim (\textbf{CHECK})
+\end{itemize}
+
+\newpage
+
+\section*{Departamento}
+\begin{itemize}
+	\item cada departamento tem o seu número identificador único (\textbf{PRIMARY KEY})
+	\item cada departamento tem um nome e um responsável (\textbf{NOT NULL})
+	\item Responsavel é chave estrangeira para staff (\textbf{REFERENCES})
+	\item não é possível remover um membro da staff caso esse esteja mapeado como um Responsavel de um departamento, mas é possível alterá-lo, tais alterações serão aplicadas no departamento que mapeia o membro da staff (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item não pode haver o mesmo membro da staff responsável por dois departamentos (\textbf{UNIQUE})
+\end{itemize}
+
+\section*{Paciente}
+\begin{itemize}
+	\item cada paciente tem um número de identificação único (\textbf{PRIMARY KEY})
+	\item além disso, número de identificação (\textbf{PessoaID}) é chave estrangeira para Pessoa (\textbf{REFERENCES})
+	\item não é possível eliminar uma pessoa enquanto houver um paciente mapeada para essa pessoa, mas pode-se alterar a pessoa que alterará no paciente que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item cada paciente tem um grupo sanguineo (\textbf{NOT NULL})
+	\item SubsistemaSaude é chave estrangeira para SubsistemaSaude (\textbf{REFERENCES})
+	\item ao eliminar um subsistema de saúde colocará em todos os pacientes que o mapeavam o valor \textbf{NULL}, em caso de alteração, alterará também no paciente que o mapeia (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{SubsistemaSaude}
+\begin{itemize}
+	\item cada subsistema de saúde tem um ID único (\textbf{PRIMARY KEY})
+	\item nome do subsistema de saúde deve ser único e não nulo (\textbf{NOT NULL} e \textbf{UNIQUE})
+\end{itemize}
+
+\section*{Admissao}
+\begin{itemize}
+	\item cada admissão tem um ID único (\textbf{PRIMARY KEY})
+	\item cada admissão tem uma data (\textbf{NOT NULL})
+	\item uma admissão pode ser urgência ou não (isto é, tem o valor 1 ou 0, respetivamente), por omissão trata-se de uma admissão não urgente (\textbf{NOT NULL} e \textbf{CHECK} e \textbf{DEFAULT})
+	\item caso seja uma admissão de urgência a prioridade deve ter um valor maior que 0, em caso não urgente, a prioridade por omissão é 0 (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
+\end{itemize}
+
+\section*{Doenca}
+\begin{itemize}
+	\item cada doença tem um ID único (\textbf{PRIMARY KEY})
+	\item cada doença tem um nome, uma descrição e os seus sintomas (\textbf{NOT NULL})
+	\item o nome da doença deve ser único (\textbf{UNIQUE})
+\end{itemize}
+
+\section*{Ocorrencia}
+\begin{itemize}
+	\item cada ocorrência tem um ID único (\textbf{PRIMARY KEY})
+	\item cada ocorrência tem uma data ínicio, um paciente e uma doença associada à ocorrência (\textbf{NOT NULL})
+	\item Paciente é chave estrangeira para Paciente, Doenca é chave estrangeira para Doenca (\textbf{REFERENCES})
+	\item não é possível eliminar uma doença ou um paciente se houver ocorrências a mapeá-los, mas ao alterar os mesmos, a informação também será alterada nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item se a data de fim for não nula, então deve ser depois da data de ínicio, por omissão a data de fim é nula (\textbf{CHECK} e \textbf{DEFAULT})
+\end{itemize}
+
+\section*{Quarto}
+\begin{itemize}
+	\item cada quarto tem um número único (\textbf{PRIMARY KEY})
+\end{itemize}
+
+\section*{Evento}
+\begin{itemize}
+	\item cada evento tem um ID único (\textbf{PRIMARY KEY})
+	\item cada admissão tem uma descrição e uma data, a admissão ao qual está relacionada e o quarto onde foi procedido esse evento (\textbf{NOT NULL})
+	\item Admissao é chave estrangeira para Admissao, Quarto é chave estrangeira para Quarto (\textbf{REFERENCES})
+	\item não é possível eliminar uma admissão nem um quarto enquanto houver ocorrências a mapeá-los, em caso de alteração, estas também são aplicadas nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{Invervencao}
+\begin{itemize}
+	\item cada intervenção tem um ID (do evento) único (\textbf{PRIMARY KEY})
+	\item cada intervenção tem uma descrição (\textbf{NOT NULL})
+	\item o ID da intervenção (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{REFERENCES})
+	\item não é possível eliminar um evento se houver uma intervenção que o mapeia, em caso de alterações, estas também são aplicadas nas intervenções que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{Exame}
+\begin{itemize}
+	\item cada exame deve ter um ID (do evento) único (\textbf{PRIMARY KEY})
+	\item cada exame tem um nome e uma descrição (\textbf{NOT NULL})
+	\item o ID do exame (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{REFERENCES})
+	\item não é possível eliminar um evento se houver um exame que o mapeia, em caso de alterações, estas também são aplicadas nos exames que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{Consulta}
+\begin{itemize}
+	\item cada consulta deve ter um ID (do evento) único (\textbf{PRIMARY KEY})
+	\item cada consulta tem um médico associado e um diagnóstico (\textbf{NOT NULL})
+	\item o ID da consulta (\textbf{EventoID}) é chave estrangeira para Evento, Medico é chave estrangeira para Medico (\textbf{REFERENCES})
+	\item não é possível eliminar um evento se houver uma consulta que o mapeia, em caso de alterações, estas também são aplicadas nas consulta que os mapeiam. O mesmo se aplica para a chave estrangeira Medico (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{Internamento}
+\begin{itemize}
+	\item cada internamento deve ter um ID (do evento) único (\textbf{PRIMARY KEY})
+	\item cada internamento tem um motivo e se o internamento está ativo ou não (\textbf{NOT NULL})
+	\item o ID do internamento (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{REFERENCES})
+	\item não é possível eliminar um evento se houver um internamento que o mapeia, em caso de alterações, estas também são aplicadas nos internamento que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item Ativo é um valor booleano, tomando o valor de 0 ou 1 (\textbf{CHECK})
+	\item se Ativo estiver a 1 então DataFim deve ser não nula, se tiver a 0 então DataFim deve ser nula (\textbf{CHECK})
+	\item DataFim deve ser maior que a Data do evento mapeado na chave estrangeira EventoID (\textbf{TRIGGER})
+\end{itemize}
+
+\section*{HorarioTrabalho}
+\begin{itemize}
+	\item cada intermante deve ter um ID de staff e um ID de horário único (\textbf{PRIMARY KEY})
+	\item StaffID é chave estrangeira para Staff e HorarioID chave estrangeira para Horario (\textbf{REFERENCES})
+	\item ao eliminar uma staff que esteja mapeada num HorarioTrabalho, eliminará também o HorarioTrabalho, em caso de alteração, também alterará em HorarioTrabalho. O mesmo aplica-se à chave estrangeira Horario (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{MedicoAtribuido}
+\begin{itemize}
+	\item cada intermante deve ter um ID de um paciente e um ID de um médico único (\textbf{PRIMARY KEY})
+	\item PacienteID é chave estrangeira para Paciente e MedicoID chave estrangeira para Medico (\textbf{REFERENCES})
+	\item ao eliminar um paciente que esteja mapeada num MedicoAtribuido, eliminará também o MedicoAtribuido, em caso de alteração, também alterará em MedicoAtribuido. O mesmo aplica-se à chave estrangeira MedicoID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{EnfermeiroInterv}
+\begin{itemize}
+	\item deve ter uma intervenção ao qual foi atribuído um enfermeiro (\textbf{PRIMARY KEY})
+	\item EnfermeiroID é uma chave estrangeira para Enfermeiro e IntervID é chave estrangeira para Intervencao
+	\item ao eliminar um enfermeiro que esteja mapeado num EnfermeiroInterv, eliminará também o EnfermeiroInterv, em caso de alteração, também alterará em EnfermeiroInterv. O mesmo aplica-se à chave estrangeira IntervID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{EnfermeiroExame}
+\begin{itemize}
+	\item deve ter um exame ao qual foi atribuído um enfermeiro (\textbf{PRIMARY KEY})
+	\item EnfermeiroID é uma chave estrangeira para Enfermeiro e ExameID é chave estrangeira para Exame
+	\item ao eliminar um enfermeiro que esteja mapeado num EnfermeiroExame, eliminará também o EnfermeiroExame, em caso de alteração, também alterará em EnfermeiroExame. O mesmo aplica-se à chave estrangeira ExameID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{TecnicoInterv}
+\begin{itemize}
+	\item deve ter uma intervenção ao qual foi atribuído um técnico (\textbf{PRIMARY KEY})
+	\item TecnicoID é uma chave estrangeira para Tecnico e IntervID é chave estrangeira para Intervencao
+	\item ao eliminar um técnico que esteja mapeado num TecnicoInterv, eliminará também o TecnicoInterv, em caso de alteração, também alterará em TecnicoInterv. O mesmo aplica-se à chave estrangeira IntervID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{TecnicoExame}
+\begin{itemize}
+	\item deve ter um exame ao qual foi atribuído um técnico (\textbf{PRIMARY KEY})
+	\item TecnicoID é uma chave estrangeira para Tecnico e ExameID é chave estrangeira para Exame
+	\item ao eliminar um técnico que esteja mapeado num TecnicoExame, eliminará também o TecnicoExame, em caso de alteração, também alterará em TecnicoExame. O mesmo aplica-se à chave estrangeira ExameID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{MedicoInterv}
+\begin{itemize}
+	\item deve ter uma intervenção ao qual foi atribuído um médico (\textbf{PRIMARY KEY})
+	\item MedicoID é uma chave estrangeira para Medico e IntervID é chave estrangeira para Intervencao
+	\item ao eliminar um médico que esteja mapeado num MedicoInterv, eliminará também o MedicoInterv, em caso de alteração, também alterará em MedicoInterv. O mesmo aplica-se à chave estrangeira IntervID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{MedicoExame}
+\begin{itemize}
+	\item deve ter um exame ao qual foi atribuído um médico (\textbf{PRIMARY KEY})
+	\item MedicoID é uma chave estrangeira para Medico e ExameID é chave estrangeira para Exame
+	\item ao eliminar um médico que esteja mapeado num MedicoExame, eliminará também o MedicoExame, em caso de alteração, também alterará em MedicoExame. O mesmo aplica-se à chave estrangeira ExameID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+\end{itemize}
+
+\section*{OcorrenciaEvento}
+\begin{itemize}
+	\item deve ter um evento que esteja ligada a uma ocorrência (\textbf{PRIMARY KEY})
+	\item OcorrenciaID é uma chave estrangeira para Ocorrencia e EventoID é chave estrangeira para Evento
+	\item ao eliminar uma ocorrência que esteja mapeado num OcorrenciaEvento, eliminará também o OcorrenciaEvento, em caso de alteração, também alterará em OcorrenciaEvento. O mesmo aplica-se à chave estrangeira EventoID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
 \end{document}
