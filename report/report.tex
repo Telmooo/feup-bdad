@@ -384,8 +384,6 @@ Não tem dependências funcionais.
 	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
 \end{itemize}
 
-\newpage
-
 \subsubsection*{Tecnico}
 \begin{itemize}
 	\item cada técnico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
@@ -398,7 +396,9 @@ Não tem dependências funcionais.
 	\item cada médico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
 	\item não é possível eliminar um membro da staff enquanto houver um médico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no médico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
+	\item Consultorio é chave estrangeira para Quarto (\textbf{REFERENCES})
 	\item o consultório deve ser único (\textbf{UNIQUE})
+	\item caso se elimine um quarto que é mapeado como consultório, o valor do consultório é colocado a nulo, em caso de alteração, o consultório também é alterado (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
 \section*{Especializacao}
@@ -406,6 +406,7 @@ Não tem dependências funcionais.
 	\item cada especialização deve ter um ID único (\textbf{PRIMARY KEY})
 	\item nome da especialização deve ser único e não nulo (\textbf{NOT NULL} e \textbf{UNIQUE})
 	\item Departamento é chave estrangeira para Departamento
+	\item caso se elimine um departamento, será colocado a nulo o valor do departamento em todas as especializações que o mapeiem, em caso de alteração, será alterado também (\textbf{ON UPDATE CASCADE} e \textbf{ON DELETE SET NULL})
 \end{itemize}
 
 \section*{Horario}
@@ -414,8 +415,6 @@ Não tem dependências funcionais.
 	\item cada horário deve ter um dia da semana em qual está incidido, uma hora de ínicio e uma hora de fim (\textbf{NOT NULL})
 	\item A hora de ínicio deve ser antes da hora de fim (\textbf{CHECK})
 \end{itemize}
-
-\newpage
 
 \section*{Departamento}
 \begin{itemize}
@@ -445,9 +444,11 @@ Não tem dependências funcionais.
 \section*{Admissao}
 \begin{itemize}
 	\item cada admissão tem um ID único (\textbf{PRIMARY KEY})
-	\item cada admissão tem uma data (\textbf{NOT NULL})
+	\item cada admissão tem uma data e um paciente (\textbf{NOT NULL})
 	\item uma admissão pode ser urgência ou não (isto é, tem o valor 1 ou 0, respetivamente), por omissão trata-se de uma admissão não urgente (\textbf{NOT NULL} e \textbf{CHECK} e \textbf{DEFAULT})
 	\item caso seja uma admissão de urgência a prioridade deve ter um valor maior que 0, em caso não urgente, a prioridade por omissão é 0 (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
+	\item Paciente é chave estrangeira para Paciente (\textbf{REFERENCES})
+	\item não é possível eliminar um paciente caso este esteja mapeado em Admissao, e alterar um paciente altera também em Admissao (\textbf{ON UPDATE CASCADE} e \textbf{ON DELETE RESTRICT})
 \end{itemize}
 
 \section*{Doenca}
@@ -463,7 +464,7 @@ Não tem dependências funcionais.
 	\item cada ocorrência tem uma data ínicio, um paciente e uma doença associada à ocorrência (\textbf{NOT NULL})
 	\item Paciente é chave estrangeira para Paciente, Doenca é chave estrangeira para Doenca (\textbf{REFERENCES})
 	\item não é possível eliminar uma doença ou um paciente se houver ocorrências a mapeá-los, mas ao alterar os mesmos, a informação também será alterada nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
-	\item se a data de fim for não nula, então deve ser depois da data de ínicio, por omissão a data de fim é nula (\textbf{CHECK} e \textbf{DEFAULT})
+	\item se a data de fim for não nula, então deve ser depois da data de ínicio (\textbf{CHECK})
 \end{itemize}
 
 \section*{Quarto}
@@ -477,6 +478,7 @@ Não tem dependências funcionais.
 	\item cada admissão tem uma descrição e uma data, a admissão ao qual está relacionada e o quarto onde foi procedido esse evento (\textbf{NOT NULL})
 	\item Admissao é chave estrangeira para Admissao, Quarto é chave estrangeira para Quarto (\textbf{REFERENCES})
 	\item não é possível eliminar uma admissão nem um quarto enquanto houver ocorrências a mapeá-los, em caso de alteração, estas também são aplicadas nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item a data do evento deve ser maior que a data de admissão (\textbf{TRIGGER})
 \end{itemize}
 
 \section*{Invervencao}
