@@ -1,0 +1,232 @@
+Abscess|description|symptoms
+Alzheimer's disease|description|symptoms
+Anthrax|description|symptoms
+Appendicitis|description|symptoms
+Allergy|description|symptoms
+Arthritis|description|symptoms
+Aseptic meningitis|description|symptoms
+Asthma|description|symptoms
+Astigmatism|description|symptoms
+Atherosclerosis|description|symptoms
+Bacterial meningitis|description|symptoms
+Beriberi|description|symptoms
+Black Death|description|symptoms
+Botulism|description|symptoms
+Breast cancer|description|symptoms
+Bronchitis|description|symptoms
+Brucellosis|description|symptoms
+Bubonic plague|description|symptoms
+Bunion|description|symptoms
+Campylobacter infection|description|symptoms
+Cancer|description|symptoms
+Candidiasis|description|symptoms
+Carbon monoxide poisoning|description|symptoms
+Coeliac disease|description|symptoms
+Cerebral palsy|description|symptoms
+Chagas disease|description|symptoms
+Chickenpox|description|symptoms
+Chlamydia|description|symptoms
+Chlamydia trachomatis|description|symptoms
+Cholera|description|symptoms
+Chordoma|description|symptoms
+Chorea|description|symptoms
+Chronic fatigue syndrome|description|symptoms
+Circadian rhythm sleep disorder|description|symptoms
+Colitis|description|symptoms
+Common cold|description|symptoms
+Condyloma|description|symptoms
+Congestive heart disease|description|symptoms
+Coronary heart disease|description|symptoms
+COVID-19|description|symptoms
+Cowpox|description|symptoms
+Crohn's Disease|description|symptoms
+Dengue Fever|description|symptoms
+Diabetes mellitus|description|symptoms
+Diphtheria|description|symptoms
+Dehydration|description|symptoms
+Dysentery|description|symptoms
+Ear infection|description|symptoms
+Ebola|description|symptoms
+Encephalitis|description|symptoms
+Emphysema|description|symptoms
+Epilepsy|description|symptoms
+Erectile dysfunction|description|symptoms
+Fibromyalgia|description|symptoms
+Foodborne illness|description|symptoms
+Gangrene|description|symptoms
+Gastroenteritis|description|symptoms
+Genital herpes|description|symptoms
+GERD|description|symptoms
+Goitre|description|symptoms
+Gonorrhea|description|symptoms
+Heart disease|description|symptoms
+Hepatitis A|description|symptoms
+Hepatitis B|description|symptoms
+Hepatitis C|description|symptoms
+Hepatitis D|description|symptoms
+Hepatitis E|description|symptoms
+Histiocytosis (childhood cancer)|description|symptoms
+HIV|description|symptoms
+Human papillomavirus|description|symptoms
+Huntington's disease|description|symptoms
+Hypermetropia|description|symptoms
+Hyperopia|description|symptoms
+Hyperthyroidism|description|symptoms
+Hypothyroid|description|symptoms
+Hypotonia|description|symptoms
+Impetigo|description|symptoms
+Infertility|description|symptoms
+Influenza|description|symptoms
+Interstitial cystitis|description|symptoms
+Iritis|description|symptoms
+Iron-deficiency anemia|description|symptoms
+Irritable bowel syndrome|description|symptoms
+Ignious Syndrome|description|symptoms
+Jaundice|description|symptoms
+Keloids|description|symptoms
+Kuru|description|symptoms
+Kwashiorkor|description|symptoms
+Kidney stone disease|description|symptoms
+Laryngitis|description|symptoms
+Lead poisoning|description|symptoms
+Legionellosis|description|symptoms
+Leishmaniasis|description|symptoms
+Leprosy|description|symptoms
+Leptospirosis|description|symptoms
+Listeriosis|description|symptoms
+Leukemia|description|symptoms
+Lice|description|symptoms
+Loiasis|description|symptoms
+Lung cancer|description|symptoms
+Lupus erythematosus|description|symptoms
+Lyme disease|description|symptoms
+Lymphogranuloma venereum|description|symptoms
+Lymphoma|description|symptoms
+Limbtoosa|description|symptoms
+Mad cow disease|description|symptoms
+Malaria|description|symptoms
+Marburg fever|description|symptoms
+Measles|description|symptoms
+Melanoma|description|symptoms
+Metastatic cancer|description|symptoms
+Meniere's disease|description|symptoms
+Meningitis|description|symptoms
+Migraine|description|symptoms
+Multiple myeloma|description|symptoms
+Multiple sclerosis|description|symptoms
+Mumps|description|symptoms
+Muscular dystrophy|description|symptoms
+Myasthenia gravis|description|symptoms
+Myelitis|description|symptoms
+Myoclonus|description|symptoms
+Myopia|description|symptoms
+Myxedema|description|symptoms
+Morquio Syndrome|description|symptoms
+Mattticular syndrome|description|symptoms
+Mononucleosis|description|symptoms
+Neoplasm|description|symptoms
+Non-gonococcal urethritis|description|symptoms
+Necrotizing Fasciitis|description|symptoms
+Night blindness|description|symptoms
+Obesity|description|symptoms
+Osteoarthritis|description|symptoms
+Osteoporosis|description|symptoms
+Otitis|description|symptoms
+Palindromic rheumatism|description|symptoms
+Paratyphoid fever|description|symptoms
+Parkinson's disease|description|symptoms
+Pelvic inflammatory disease|description|symptoms
+Peritonitis|description|symptoms
+Periodontal disease|description|symptoms
+Pertussis|description|symptoms
+Phenylketonuria|description|symptoms
+Plague|description|symptoms
+Poliomyelitis|description|symptoms
+Porphyria|description|symptoms
+Progeria|description|symptoms
+Prostatitis|description|symptoms
+Psittacosis|description|symptoms
+Psoriasis|description|symptoms
+Pubic lice|description|symptoms
+Pulmonary embolism|description|symptoms
+Pilia|description|symptoms
+pneumonia|description|symptoms
+Q fever|description|symptoms
+Ques fever|description|symptoms
+Rabies|description|symptoms
+Repetitive strain injury|description|symptoms
+Rheumatic fever|description|symptoms
+Rheumatic heart|description|symptoms
+Rheumatism|description|symptoms
+Rheumatoid arthritis|description|symptoms
+Rickets|description|symptoms
+Rift Valley fever|description|symptoms
+Rocky Mountain spotted fever|description|symptoms
+Rubella|description|symptoms
+Salmonellosis|description|symptoms
+Scabies|description|symptoms
+Scarlet fever|description|symptoms
+Sciatica|description|symptoms
+Scleroderma|description|symptoms
+Scrapie|description|symptoms
+Scurvy|description|symptoms
+Sepsis|description|symptoms
+Septicemia|description|symptoms
+SARS|description|symptoms
+Shigellosis|description|symptoms
+Shin splints|description|symptoms
+Shingles|description|symptoms
+Sickle-cell anemia|description|symptoms
+Siderosis|description|symptoms
+SIDS|description|symptoms
+Silicosis|description|symptoms
+Smallpox|description|symptoms
+Stevens–Johnson syndrome|description|symptoms
+Stomach flu|description|symptoms
+Stomach ulcers|description|symptoms
+Strabismus|description|symptoms
+Strep throat|description|symptoms
+Streptococcal infection|description|symptoms
+Synovitis|description|symptoms
+Syphilis|description|symptoms
+Swine influenza|description|symptoms
+Schizophrenia|description|symptoms
+Taeniasis|description|symptoms
+Tay-Sachs disease|description|symptoms
+Tennis elbow|description|symptoms
+Teratoma|description|symptoms
+Tetanus|description|symptoms
+Thalassaemia|description|symptoms
+Thrush|description|symptoms
+Thymoma|description|symptoms
+Tinnitus|description|symptoms
+Tonsillitis|description|symptoms
+Tooth decay|description|symptoms
+Toxic shock syndrome|description|symptoms
+Trichinosis|description|symptoms
+Trichomoniasis|description|symptoms
+Trisomy|description|symptoms
+Tuberculosis|description|symptoms
+Tularemia|description|symptoms
+Tungiasis|description|symptoms
+Typhoid fever|description|symptoms
+Typhus|description|symptoms
+Tumor|description|symptoms
+Ulcerative colitis|description|symptoms
+Ulcers|description|symptoms
+Uremia|description|symptoms
+Urticaria|description|symptoms
+Uveitis|description|symptoms
+UTI'S|description|symptoms
+Varicella|description|symptoms
+Varicose veins|description|symptoms
+Vasovagal syncope|description|symptoms
+Vitiligo|description|symptoms
+Von Hippel-Lindau disease|description|symptoms
+Viral fever|description|symptoms
+Viral meningitis|description|symptoms
+Warkany syndrome|description|symptoms
+Warts|description|symptoms
+Watkins|description|symptoms
+Yellow fever|description|symptoms
+Yersiniosis|description|symptoms
