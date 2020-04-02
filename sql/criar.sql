@@ -33,7 +33,7 @@ CREATE TABLE Pessoa (
         NumIdentificacao    INTEGER NOT NULL UNIQUE,
         Nome                TEXT    NOT NULL,
         Morada              TEXT    NOT NULL,
-        Telefone            INTEGER NOT NULL UNIQUE,
+        Telefone            INTEGER UNIQUE,
         NumeroBeneficiario  INTEGER NOT NULL UNIQUE,
         Sexo                TEXT    NOT NULL,
         DataNascimento      TEXT    NOT NULL
@@ -227,7 +227,7 @@ CREATE TABLE Internamento (
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        CHECK ((Ativo == 0) OR (Ativo == 1 AND DataFim IS NOT NULL))
+        CHECK ((Ativo == 0 AND DataFim IS NULL) OR (Ativo == 1 AND DataFim IS NOT NULL))
 );
 
 CREATE TABLE HorarioTrabalho (
