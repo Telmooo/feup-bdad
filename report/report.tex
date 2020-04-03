@@ -90,7 +90,7 @@
 \textbf{Projeto BDAD - 2019/20 - MIEIC}
 \Repeat{2}{\linebreak}
 \begin{tabular}{l r}
-	\textbf{Professora das Aulas Laboratorias}: & Carla Alexandra Teixeira Lopes
+	\textbf{Professora das Aulas Laboratoriais}: & Carla Alexandra Teixeira Lopes
 \end{tabular}
 \Repeat{4}{\linebreak}
 % FEUP Logo
@@ -116,30 +116,28 @@
 \chapter[Contexto][Contexto]{Contexto} \label{\thechapter}
 É pretendido modelar uma base de dados para um hospital com diversos tipos de serviços disponíveis.
 
-Sobre o próprio hospital, interessa guardar informação genérica, como o seu nome, localização completa (morada, código postal, localidade, etc), contato telefónico, bem como se o hospital é público ou privado.
-
 O hospital é constituído por vários departamentos. Cada um destes tem nome, identificador, especializações e entidade responsável pelo departamento.
 
-Staff, pacientes e médicos de família são pessoas, acerca das quais interessa saber o nome, o seu número de identificação único (cartão de cidadão ou equivalente), a sua morada completa (morada propriamente dita, código postal, localidade, etc), a(s) sua(s) nacionalidade(s), o seu contato telefónico, o seu número de beneficiário, o seu sexo e a sua data de nascimento.
+Staff, pacientes e médicos de família são pessoas, acerca das quais interessa saber o nome, o seu número de identificação único (cartão de cidadão ou equivalente), a sua morada, o seu contacto telefónico, o seu número de beneficiário, o seu sexo e a sua data de nascimento.
 
 A entidade responsável por um departamento é um membro da staff do hospital, podendo este tratar-se de um médico, enfermeiro ou técnico no hospital. Cada membro do staff tem o seu código identificador no hospital.
 
 Especificamente sobre os médicos, é necessário guardar o número do seu consultório no hospital (caso tenha) e a sua especialização (caso tenha).
-Sobre os enfermeiros, apenas é necessário guardar a sua especilização, caso a tenha.
-Sobre os técnicos, apenas interessa guardar que serviço ofereçem.
+Sobre os enfermeiros, apenas é necessário guardar a sua especialização (caso tenha).
+Sobre os técnicos, apenas interessa guardar que serviço oferecem.
 
 Sobre os médicos de família, interessa guardar o centro de saúde ao qual estão associados.
 
-O hospital guarda informação sobre os seus pacientes como o seu grupo sanguíneo, o subsistema de saúde ao qual o paciente está associado, as doenças que o paciente tem, o seu médico de família, os médicos atribuídos naquele hospital, e as suas admissões no hospital.
+O hospital guarda informação sobre os seus pacientes como o seu grupo sanguíneo, o subsistema de saúde ao qual o paciente está associado, o histórico das ocorrências de doenças que o paciente teve, o seu médico de família, os médicos atribuídos naquele hospital, e as suas admissões no hospital.
 
 Sobre cada doença interessa guardar o seu nome, uma descrição da doença e os seus sintomas predominantes.
 
-Uma admissão no hospital tem uma data, se se trata de uma admissão de urgência e, caso seja uma urgência, a prioridade desta. Uma admissão pode desencadear vários tipos de eventos. Cada evento tem uma descrição sobre do que se trata, uma data, e outras informações dependendo do tipo de evento, que pode corresponder a: uma consulta, um exame, uma intervenção ou um internamento.
+Uma admissão no hospital tem uma data, se se trata de uma admissão de urgência e, caso seja uma urgência, a prioridade desta. Uma admissão pode desencadear vários tipos de eventos. Cada evento tem uma descrição sobre do que se trata, uma data, o quarto onde se realiza e outras informações dependendo do tipo de evento, que pode corresponder a: uma consulta, um exame, uma intervenção ou um internamento.
 
 Numa consulta, interessa guardar o médico que a realizou e o diagnóstico da consulta.
-Num exame, guarda-se o nome do exame feito e uma descrição deste.
-Numa intervenção, guarda-se uma descrição da intervenção realizada.
-Num internamento é necessário guardar o quarto onde o paciente se encontra, o motivo do internamento e a data na qual o paciente recebeu alta (saiu do internamento) caso tal já tenha acontecido.
+Num exame, guarda-se o nome do exame feito e uma descrição deste, bem como os médicos, enfermeiros e técnicos que dele participaram.
+Numa intervenção, guarda-se uma descrição da intervenção realizada, bem como os médicos, enfermeiros e técnicos envolvidos.
+Num internamento é necessário guardar o motivo deste, se ainda está ativo e, em caso negativo, a data na qual o paciente recebeu alta (saiu do internamento) caso tal já tenha acontecido.
 
 \newpage
 %----------------------------------------------------------------------------------------
@@ -180,7 +178,7 @@ Num internamento é necessário guardar o quarto onde o paciente se encontra, o 
 \begin{itemize}
 	\item Admissao(\underline{AdmissaoID}, Data, Urgencia, Prioridade, Paciente$\rightarrow$Paciente)
 	\item Doenca(\underline{DoencaID}, Nome, Descricao, Sintomas)
-	\item Ocorrrencia(\underline{OcorrenciaID}, DataInicio, DataFim, Paciente$\rightarrow$Paciente, Doenca$\rightarrow$Doenca)
+	\item Ocorrencia(\underline{OcorrenciaID}, DataInicio, DataFim, Paciente$\rightarrow$Paciente, Doenca$\rightarrow$Doenca)
 	\item Quarto(\underline{Numero})
 	\item Evento(\underline{EventoID}, Descricao, Data, Admissao$\rightarrow$Admissao, Quarto$\rightarrow$Quarto)
 	\begin{itemize}
@@ -215,26 +213,26 @@ Associações relativas à classe Evento:
 \end{itemize}
 
 \subsection{Associações muitos-para-um}
-Para este tipo de associações foi adotado o método de adicionar uma chave estrangeira para a relação "um" na relação "muitos".
+Para este tipo de associações foi adotado o método de adicionar uma chave estrangeira para a relação do lado "um" na relação do lado "muitos".
 
 \subsection{Associações um-para-um}
-Para este tipo de associações foi adicionado uma chave estrangeira à relação que possuirá o menor número de tuplos, exceto nos casos em que essa relação poder ter esse elemento como nulo, nos casos em que ambos podem ser nulos,
+Para este tipo de associações foi adicionada uma chave estrangeira à relação que possuiria o menor número de tuplos, exceto nos casos em que essa relação pudesse ter esse elemento como nulo, nos casos em que ambos podem ser nulos.
 
 \section{Generalizações}
-Quanto as generalizações, optou-se por usar o método E/R, criando uma relação para cada classe, e adicionando a chave da super-classe às subclasses, devido às restrições que necessitam ser implementadas nestas classes.
+Quanto às generalizações, optou-se por usar o método E/R, criando uma relação para cada classe, e adicionando a chave da super-classe às subclasses, devido às restrições que necessitam ser implementadas nestas classes.
 
 \newpage
 %----------------------------------------------------------------------------------------
 %	CHAPTER 4 - Analysis of Functional Dependencies and Normal Forms
 %----------------------------------------------------------------------------------------
-\chapter[Análise de DFs e FNs][Análise de FDs e FNs]{Análise de Dependências Funcionais e Formas Normais} \label{\thechapter}
+\chapter[Análise de DFs e FNs][Análise de DFs e FNs]{Análise de Dependências Funcionais e Formas Normais} \label{\thechapter}
 
-Para cada relação será estudado se este se encontra na forma normal de Boyce-Codd e na 3ª forma normal.
+Para cada relação será estudado se esta se encontra na forma normal Boyce-Codd e na 3ª forma normal.
 
-\textbf{Forma normal de Boyce-Codd (BCNF)}\\
+\textbf{Forma normal Boyce-Codd (BCNF)}\\
 Uma relação $R$ com dependências funcionais $FD$ está na forma normal de Boyce-Codd se:
 \begin{itemize}
-	\item Para cada dependência funcional não trivial $\overline{A}\rightarrow\overline{B}$, $\overline{A}$ é uma (super)chave
+	\item Para cada dependência funcional não trivial $\overline{A}\rightarrow\overline{B}$, $\overline{A}$ é uma (super)chave da relação R.
 \end{itemize}
 
 \textbf{Terceira forma normal (3NF)}\\
@@ -242,12 +240,12 @@ Uma relação $R$ com dependências funcionais $FD$ está na terceira forma norm
 \begin{itemize}
 	\item Para cada dependência funcional não trivial $\overline{A}\rightarrow\overline{B}$, se se verificar pelo menos uma das seguintes propriedades:
 	\begin{itemize}
-		\item $\overline{A}$ é uma (super)chave
-		\item $\overline{B}$ consiste apenas de atributos primos (atributos que pertençam a uma chave)
+		\item $\overline{A}$ é uma (super)chave da relação R;
+		\item $\overline{B}$ consiste apenas de atributos primos (atributos que pertencem a pelo menos uma chave).
 	\end{itemize}
 \end{itemize}
 
-Vale notar que se uma relação estiver na forma normal de Boyce-Codd (BCNF) esta também se encontra na terceira forma normal (3NF), já que as 3NF são um superset das BCNF\\
+Vale notar que se uma relação estiver na forma normal Boyce-Codd (BCNF), esta também se encontra na terceira forma normal (3NF), já que as 3NF são um superconjunto das BCNF\\
 Se uma relação apenas consistir de dependências funcionais triviais, então a relação também está na forma normal de Boyce-Codd e por consequência na terceira forma normal.
 
 \section*{Pessoa}
@@ -262,7 +260,7 @@ Se uma relação apenas consistir de dependências funcionais triviais, então a
 \[
 \{ PessoaID \}, \{ NumIdentificacao \}, \{ Telefone \}, \{ NumeroBeneficiario \}
 \]
-Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+Como, para cada dependência não trivial, o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira forma normal (3NF)
 
 \section*{Staff}
 \begin{itemize}
@@ -498,38 +496,38 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \section*{Pessoa}
 \begin{itemize}
 	\item cada pessoa tem um ID único (\textbf{PRIMARY KEY})
-	\item cada pessoa deve ter um número de identificação, nome, morada, número beneficiário, sexo e data nascimento (\textbf{NOT NULL})
-	\item o número de identificação, número benificiário e telefone devem ser únicos (\textbf{UNIQUE})
+	\item cada pessoa deve ter um número de identificação, nome, morada, número de beneficiário, telefone, sexo e data de nascimento (\textbf{NOT NULL})
+	\item o número de identificação e o número de beneficiário devem ser únicos (\textbf{UNIQUE})
 \end{itemize}
 
 \section*{Staff}
 \begin{itemize}
 	\item cada membro da staff tem um ID único (\textbf{PRIMARY KEY})
-	\item além disso, PessoaID é chave estrangeira para Pessoa (\textbf{REFERENCES})
+	\item além disso, PessoaID é chave estrangeira para Pessoa (\textbf{FOREIGN KEY})
 	\item não é possível eliminar uma pessoa enquanto houver staff mapeada para essa pessoa, mas pode-se alterar a pessoa que alterará na staff que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item Especializacao é chave estrangeira para Especializacao, e tal será posta a \textbf{NULL} caso a Especializacao seja eliminada, em caso de alterações, as alterações seram feitas em toda a staff que mapeia essa especialização (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
 \subsubsection*{Enfermeiro}
 \begin{itemize}
-	\item cada enfermeiro tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
-	\item não é possível eliminar um membro da staff enquanto houver um enfermeiro mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no enfermeiro que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item cada enfermeiro tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{FOREIGN KEY})
 	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
+	\item não é possível eliminar um membro da staff enquanto houver um enfermeiro mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no enfermeiro que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
 \subsubsection*{Tecnico}
 \begin{itemize}
-	\item cada técnico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
-	\item não é possível eliminar um membro da staff enquanto houver um técnico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no técnico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item cada técnico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{FOREIGN KEY})
 	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
+	\item não é possível eliminar um membro da staff enquanto houver um técnico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no técnico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
 \subsubsection*{Medico}
 \begin{itemize}
-	\item cada médico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{REFERENCES})
-	\item não é possível eliminar um membro da staff enquanto houver um médico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no médico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item cada médico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{FOREIGN KEY}}
 	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
-	\item Consultorio é chave estrangeira para Quarto (\textbf{REFERENCES})
+	\item não é possível eliminar um membro da staff enquanto houver um médico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no médico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item Consultorio é chave estrangeira para Quarto (\textbf{FOREIGN KEY})
 	\item o consultório deve ser único (\textbf{UNIQUE})
 	\item caso se elimine um quarto que é mapeado como consultório, o valor do consultório é colocado a nulo, em caso de alteração, o consultório também é alterado (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
@@ -545,26 +543,26 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \section*{Horario}
 \begin{itemize}
 	\item cada horário tem um ID único (\textbf{PRIMARY KEY})
-	\item cada horário deve ter um dia da semana em qual está incidido, uma hora de ínicio e uma hora de fim (\textbf{NOT NULL})
-	\item A hora de ínicio deve ser antes da hora de fim (\textbf{CHECK})
+	\item cada horário deve ter um dia da semana correspondente, uma hora de início e uma hora de fim (\textbf{NOT NULL})
+	\item a hora de início deve ser antes da hora de fim (\textbf{CHECK})
 \end{itemize}
 
 \section*{Departamento}
 \begin{itemize}
 	\item cada departamento tem o seu número identificador único (\textbf{PRIMARY KEY})
 	\item cada departamento tem um nome e um responsável (\textbf{NOT NULL})
-	\item Responsavel é chave estrangeira para staff (\textbf{REFERENCES})
+	\item Responsavel é chave estrangeira para staff (\textbf{FOREIGN KEY})
 	\item não é possível remover um membro da staff caso esse esteja mapeado como um Responsavel de um departamento, mas é possível alterá-lo, tais alterações serão aplicadas no departamento que mapeia o membro da staff (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
-	\item não pode haver o mesmo membro da staff responsável por dois departamentos (\textbf{UNIQUE})
+	\item não pode haver dois departamentos com um mesmo membro da staff responsável (\textbf{UNIQUE})
 \end{itemize}
 
 \section*{Paciente}
 \begin{itemize}
 	\item cada paciente tem um número de identificação único (\textbf{PRIMARY KEY})
-	\item além disso, número de identificação (\textbf{PessoaID}) é chave estrangeira para Pessoa (\textbf{REFERENCES})
+	\item além disso, número de identificação (\textbf{PessoaID}) é chave estrangeira para Pessoa (\textbf{FOREIGN KEY})
 	\item não é possível eliminar uma pessoa enquanto houver um paciente mapeada para essa pessoa, mas pode-se alterar a pessoa que alterará no paciente que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item cada paciente tem um grupo sanguineo (\textbf{NOT NULL})
-	\item SubsistemaSaude é chave estrangeira para SubsistemaSaude (\textbf{REFERENCES})
+	\item SubsistemaSaude é chave estrangeira para SubsistemaSaude (\textbf{FOREIGN KEY})
 	\item ao eliminar um subsistema de saúde colocará em todos os pacientes que o mapeavam o valor \textbf{NULL}, em caso de alteração, alterará também no paciente que o mapeia (\textbf{ON DELETE SET NULL} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
@@ -578,9 +576,9 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \begin{itemize}
 	\item cada admissão tem um ID único (\textbf{PRIMARY KEY})
 	\item cada admissão tem uma data e um paciente (\textbf{NOT NULL})
-	\item uma admissão pode ser urgência ou não (isto é, tem o valor 1 ou 0, respetivamente), por omissão trata-se de uma admissão não urgente (\textbf{NOT NULL} e \textbf{CHECK} e \textbf{DEFAULT})
+	\item uma admissão pode ser urgência ou não (isto é, tem o valor 1 ou 0, respetivamente), por omissão trata-se de uma admissão não urgente (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
 	\item caso seja uma admissão de urgência a prioridade deve ter um valor maior que 0, em caso não urgente, a prioridade por omissão é 0 (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
-	\item Paciente é chave estrangeira para Paciente (\textbf{REFERENCES})
+	\item Paciente é chave estrangeira para Paciente (\textbf{FOREIGN KEY})
 	\item não é possível eliminar um paciente caso este esteja mapeado em Admissao, e alterar um paciente altera também em Admissao (\textbf{ON UPDATE CASCADE} e \textbf{ON DELETE RESTRICT})
 	\item um paciente não pode ter duas admissões na mesma hora do mesmo dia (datas idênticas) (\textbf{UNIQUE})
 \end{itemize}
@@ -611,7 +609,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \begin{itemize}
 	\item cada evento tem um ID único (\textbf{PRIMARY KEY})
 	\item cada admissão tem uma descrição e uma data, a admissão ao qual está relacionada e o quarto onde foi procedido esse evento (\textbf{NOT NULL})
-	\item Admissao é chave estrangeira para Admissao, Quarto é chave estrangeira para Quarto (\textbf{REFERENCES})
+	\item Admissao é chave estrangeira para Admissao, Quarto é chave estrangeira para Quarto (\textbf{FOREIGN KEY})
 	\item não é possível eliminar uma admissão nem um quarto enquanto houver ocorrências a mapeá-los, em caso de alteração, estas também são aplicadas nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item a data do evento deve ser maior que a data de admissão (\textbf{TRIGGER})
 \end{itemize}
@@ -620,7 +618,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \begin{itemize}
 	\item cada intervenção tem um ID (do evento) único (\textbf{PRIMARY KEY})
 	\item cada intervenção tem uma descrição (\textbf{NOT NULL})
-	\item o ID da intervenção (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{REFERENCES})
+	\item o ID da intervenção (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{FOREIGN KEY})
 	\item não é possível eliminar um evento se houver uma intervenção que o mapeia, em caso de alterações, estas também são aplicadas nas intervenções que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
@@ -628,7 +626,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \begin{itemize}
 	\item cada exame deve ter um ID (do evento) único (\textbf{PRIMARY KEY})
 	\item cada exame tem um nome e uma descrição (\textbf{NOT NULL})
-	\item o ID do exame (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{REFERENCES})
+	\item o ID do exame (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{FOREIGN KEY})
 	\item não é possível eliminar um evento se houver um exame que o mapeia, em caso de alterações, estas também são aplicadas nos exames que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
@@ -636,7 +634,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \begin{itemize}
 	\item cada consulta deve ter um ID (do evento) único (\textbf{PRIMARY KEY})
 	\item cada consulta tem um médico associado e um diagnóstico (\textbf{NOT NULL})
-	\item o ID da consulta (\textbf{EventoID}) é chave estrangeira para Evento, Medico é chave estrangeira para Medico (\textbf{REFERENCES})
+	\item o ID da consulta (\textbf{EventoID}) é chave estrangeira para Evento, Medico é chave estrangeira para Medico (\textbf{FOREIGN KEY})
 	\item não é possível eliminar um evento se houver uma consulta que o mapeia, em caso de alterações, estas também são aplicadas nas consulta que os mapeiam. O mesmo se aplica para a chave estrangeira Medico (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item um médico não pode ter duas consultas na mesma hora de ínicio (\textbf{TRIGGER})
 \end{itemize}
@@ -645,7 +643,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \begin{itemize}
 	\item cada internamento deve ter um ID (do evento) único (\textbf{PRIMARY KEY})
 	\item cada internamento tem um motivo e se o internamento está ativo ou não (\textbf{NOT NULL})
-	\item o ID do internamento (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{REFERENCES})
+	\item o ID do internamento (\textbf{EventoID}) é chave estrangeira para Evento (\textbf{FOREIGN KEY})
 	\item não é possível eliminar um evento se houver um internamento que o mapeia, em caso de alterações, estas também são aplicadas nos internamento que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item Ativo é um valor booleano, tomando o valor de 0 ou 1 (\textbf{CHECK})
 	\item se Ativo estiver a 1 então DataFim deve ser não nula, se tiver a 0 então DataFim deve ser nula (\textbf{CHECK})
@@ -663,7 +661,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 \section*{MedicoAtribuido}
 \begin{itemize}
 	\item cada intermante deve ter um ID de um paciente e um ID de um médico único (\textbf{PRIMARY KEY})
-	\item PacienteID é chave estrangeira para Paciente e MedicoID chave estrangeira para Medico (\textbf{REFERENCES})
+	\item PacienteID é chave estrangeira para Paciente e MedicoID chave estrangeira para Medico (\textbf{FOREIGN KEY})
 	\item ao eliminar um paciente que esteja mapeada num MedicoAtribuido, eliminará também o MedicoAtribuido, em caso de alteração, também alterará em MedicoAtribuido. O mesmo aplica-se à chave estrangeira MedicoID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
