@@ -229,6 +229,27 @@ Quanto as generalizações, optou-se por usar o método E/R, criando uma relaç�
 %----------------------------------------------------------------------------------------
 \chapter[Análise de DFs e FNs][Análise de FDs e FNs]{Análise de Dependências Funcionais e Formas Normais} \label{\thechapter}
 
+Para cada relação será estudado se este se encontra na forma normal de Boyce-Codd e na 3ª forma normal.
+
+\textbf{Forma normal de Boyce-Codd (BCNF)}\\
+Uma relação $R$ com dependências funcionais $FD$ está na forma normal de Boyce-Codd se:
+\begin{itemize}
+	\item Para cada dependência funcional não trivial $\overline{A}\rightarrow\overline{B}$, $\overline{A}$ é uma (super)chave
+\end{itemize}
+
+\textbf{Terceira forma normal (3NF)}\\
+Uma relação $R$ com dependências funcionais $FD$ está na terceira forma normal se:
+\begin{itemize}
+	\item Para cada dependência funcional não trivial $\overline{A}\rightarrow\overline{B}$, se se verificar pelo menos uma das seguintes propriedades:
+	\begin{itemize}
+		\item $\overline{A}$ é uma (super)chave
+		\item $\overline{B}$ consiste apenas de atributos primos (atributos que pertençam a uma chave)
+	\end{itemize}
+\end{itemize}
+
+Vale notar que se uma relação estiver na forma normal de Boyce-Codd (BCNF) esta também se encontra na terceira forma normal (3NF), já que as 3NF são um superset das BCNF\\
+Se uma relação apenas consistir de dependências funcionais triviais, então a relação também está na forma normal de Boyce-Codd e por consequência na terceira forma normal.
+
 \section*{Pessoa}
 \begin{itemize}
 	\item PessoaID$\rightarrow$NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento
@@ -237,17 +258,30 @@ Quanto as generalizações, optou-se por usar o método E/R, criando uma relaç�
 	\item NumeroBeneficiario$\rightarrow$PessoaID, NumIdentificacao, Nome, Morada, Telefone, Sexo, DataNascimento
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ PessoaID \}, \{ NumIdentificacao \}, \{ Telefone \}, \{ NumeroBeneficiario \}
+\]
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Staff}
 \begin{itemize}
 	\item PessoaID$\rightarrow$CodigoIdentificacao, Especializacao
 	\item CodigoIdentificacao$\rightarrow$PessoaID, Especializacao
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ PessoaID \}, \{ CodigoIdentificacao \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Enfermeiro}
-Não tem dependências funcionais
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{Tecnico}
-Não tem dependências funcionais
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{Medico}
 \begin{itemize}
@@ -255,16 +289,37 @@ Não tem dependências funcionais
 	\item Consultorio$\rightarrow$StaffID
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ StaffID \}, \{ Consultorio \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Especializacao}
 \begin{itemize}
 	\item EspecializacaoID$\rightarrow$Nome, Departamento
 	\item Nome$\rightarrow$EspecializacaoID, Departamento
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ EspecializacaoID \}, \{ Nome \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Horario}
 \begin{itemize}
 	\item HorarioID$\rightarrow$DiaSemana, HoraInicio, HoraFim
 \end{itemize}
+
+\textbf{Chaves candidatas}:\\
+\[
+\{ HorarioID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
 \section*{Departamento}
 \begin{itemize}
@@ -272,10 +327,24 @@ Não tem dependências funcionais
 	\item Responsavel$\rightarrow$NumIdentificador, Nome
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ NumIdentificador \}, \{ Responsavel \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Paciente}
 \begin{itemize}
 	\item PessoaID$\rightarrow$GrupoSanguineo, SubsistemaSaude
 \end{itemize}
+
+\textbf{Chaves candidatas}:\\
+\[
+\{ PessoaID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
 \section*{SubsistemaSaude}
 \begin{itemize}
@@ -283,11 +352,25 @@ Não tem dependências funcionais
 	\item Nome$\rightarrow$SubsistemaSaudeID
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ SubsistemaSaudeID \}, \{ Nome \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Admissao}
 \begin{itemize}
 	\item AdmissaoID$\rightarrow$Data, Urgencia, Prioridade, Paciente
 	\item Data, Paciente$\rightarrow$AdmissaoID, Urgencia, Prioridade
 \end{itemize}
+
+\textbf{Chaves candidatas}:\\
+\[
+\{ AdmissaoID \}, \{ Data, Paciente \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
 \section*{Doenca}
 \begin{itemize}
@@ -295,11 +378,25 @@ Não tem dependências funcionais
 	\item Nome$\rightarrow$DoencaID, Descricao, Sintomas
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ DoencaID \}, \{ Nome \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Ocorrencia}
 \begin{itemize}
 	\item OcorrenciaID$\rightarrow$DataInicio, DataFim, Paciente, Doenca
 	\item DataInicio, Paciente, Doenca$\rightarrow$OcorrenciaID, DataFim
 \end{itemize}
+
+\textbf{Chaves candidatas}:\\
+\[
+\{ OcorrenciaID \}, \{ DataInicio, Paciente, Doenca \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
 \section*{Quarto}
 Não tem dependências funcionais.
@@ -309,52 +406,88 @@ Não tem dependências funcionais.
 	\item EventoID$\rightarrow$Descricao, Data, Admissao, Quarto
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ EventoID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
+
 \section*{Intervencao}
 \begin{itemize}
 	\item EventoID$\rightarrow$Descricao
 \end{itemize}
+
+\textbf{Chaves candidatas}:\\
+\[
+\{ EventoID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
 \section*{Exame}
 \begin{itemize}
 	\item EventoID$\rightarrow$Nome, Descricao
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ EventoID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{Consulta}
 \begin{itemize}
 	\item EventoID$\rightarrow$Diagnostico, Medico
 \end{itemize}
+
+\textbf{Chaves candidatas}:\\
+\[
+\{ EventoID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
 \section*{Internamento}
 \begin{itemize}
 	\item EventoID$\rightarrow$Motivo, DataFim, Ativo
 \end{itemize}
 
+\textbf{Chaves candidatas}:\\
+\[
+\{ EventoID \}
+\]
+
+Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
 \section*{HorarioTrabalho}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{MedicoAtribuido}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{EnfermeiroInterv}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{EnfermeiroExame}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{TecnicoInterv}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{TecnicoExame}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{MedicoInterv}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{MedicoExame}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \section*{OcorrenciaEvento}
-Não tem dependências funcionais.
+Não tem dependências funcionais não triviais, logo, esta relação encontra-se na forma normal de Boyce-Codd (BCNF) e na terceira forma normal (3NF)
 
 \newpage
 %----------------------------------------------------------------------------------------
@@ -449,6 +582,7 @@ Não tem dependências funcionais.
 	\item caso seja uma admissão de urgência a prioridade deve ter um valor maior que 0, em caso não urgente, a prioridade por omissão é 0 (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
 	\item Paciente é chave estrangeira para Paciente (\textbf{REFERENCES})
 	\item não é possível eliminar um paciente caso este esteja mapeado em Admissao, e alterar um paciente altera também em Admissao (\textbf{ON UPDATE CASCADE} e \textbf{ON DELETE RESTRICT})
+	\item um paciente não pode ter duas admissões na mesma hora do mesmo dia (datas idênticas) (\textbf{UNIQUE})
 \end{itemize}
 
 \section*{Doenca}
@@ -465,6 +599,7 @@ Não tem dependências funcionais.
 	\item Paciente é chave estrangeira para Paciente, Doenca é chave estrangeira para Doenca (\textbf{REFERENCES})
 	\item não é possível eliminar uma doença ou um paciente se houver ocorrências a mapeá-los, mas ao alterar os mesmos, a informação também será alterada nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item se a data de fim for não nula, então deve ser depois da data de ínicio (\textbf{CHECK})
+	\item não pode haver ínicio de uma ocorrência de uma doença a meio de uma ocorrência dessa mesma doença (\textbf{TRIGGER}) (esta restrição foi implementada, nesta entrega, apenas considerando datas de ínicio iguais)
 \end{itemize}
 
 \section*{Quarto}
@@ -503,6 +638,7 @@ Não tem dependências funcionais.
 	\item cada consulta tem um médico associado e um diagnóstico (\textbf{NOT NULL})
 	\item o ID da consulta (\textbf{EventoID}) é chave estrangeira para Evento, Medico é chave estrangeira para Medico (\textbf{REFERENCES})
 	\item não é possível eliminar um evento se houver uma consulta que o mapeia, em caso de alterações, estas também são aplicadas nas consulta que os mapeiam. O mesmo se aplica para a chave estrangeira Medico (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
+	\item um médico não pode ter duas consultas na mesma hora de ínicio (\textbf{TRIGGER})
 \end{itemize}
 
 \section*{Internamento}
@@ -514,6 +650,7 @@ Não tem dependências funcionais.
 	\item Ativo é um valor booleano, tomando o valor de 0 ou 1 (\textbf{CHECK})
 	\item se Ativo estiver a 1 então DataFim deve ser não nula, se tiver a 0 então DataFim deve ser nula (\textbf{CHECK})
 	\item DataFim deve ser maior que a Data do evento mapeado na chave estrangeira EventoID (\textbf{TRIGGER})
+	\item um paciente não pode ter um novo internamento se tiver um ativo (\textbf{TRIGGER})
 \end{itemize}
 
 \section*{HorarioTrabalho}

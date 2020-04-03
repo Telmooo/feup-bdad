@@ -138,7 +138,8 @@ CREATE TABLE Admissao (
         FOREIGN KEY (Paciente)
             REFERENCES Paciente (PessoaID)
                 ON UPDATE CASCADE
-                ON DELETE RESTRICT
+                ON DELETE RESTRICT,
+        CONSTRAINT MesmaAdmissao UNIQUE(Data, Paciente)
 );
 
 CREATE TABLE Doenca (
@@ -162,6 +163,7 @@ CREATE TABLE Ocorrencia (
             REFERENCES Doenca (DoencaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
+        CONSTRAINT MesmaOcorrencia UNIQUE(DataInicio, Paciente, Doenca),
         CHECK ((DataFim IS NULL) OR (DataInicio < DataFim))
 );
 
