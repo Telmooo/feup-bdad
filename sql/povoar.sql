@@ -41,7 +41,7 @@ INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (36, "Common col
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (37, "Condyloma", "description", "symptoms");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (38, "Congestive heart disease", "description", "symptoms");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (39, "Coronary heart disease", "description", "symptoms");
-INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (40, "COVID-19", "description", "symptoms");
+INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (40, "COVID-19", "end of humanity", "destroy health care systems");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (41, "Cowpox", "description", "symptoms");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (42, "Crohn's Disease", "description", "symptoms");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (43, "Dengue Fever", "description", "symptoms");
