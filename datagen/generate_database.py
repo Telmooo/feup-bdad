@@ -2,6 +2,8 @@ import random
 import time
 from os.path import abspath, join, dirname
 
+START_TIME = time.time()
+
 full_path = lambda filename: abspath(join(dirname(__file__), filename))
 
 OUTFILE = full_path("database.txt")

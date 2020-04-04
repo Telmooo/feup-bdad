@@ -1,30 +1,19 @@
 from random import randint as ri
 from generate_database import random_date
 from generate_database import main
+from generate_database import START_TIME
+import time
 
 main()
 
 f = open('database.txt','a+')
-data = open('../sql/povoar.sql','r')
-medicos = []
-tecnicos = []
-enfermeiros = []
+
+data = open('diseases.txt','r')
 doencas = []
 
 for line in data:
-   if('INSERT INTO Medico (StaffID, Consultorio) VALUES (' in line):
-      med = line[50:len(line)-3].split(',')
-      medicos.append(int(med[0]))
-   if('INSERT INTO Tecnico (StaffID) VALUES (' in line):
-      tec = line[38:len(line)-3]
-      tecnicos.append(int(tec))
-   if('INSERT INTO Enfermeiro (StaffID) VALUES (' in line):
-      enf = line[41:len(line)-3]
-      enfermeiros.append(int(enf))
-   if('INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (' in line):
-      d = line[65:len(line)-3].split(',')[1]
-      d = d[2:-1]
-      doencas.append(d)
+   doencas.append(line.split("|")[0])
+
 
 f.write('''\n-- Departments
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (1,"Cardiologia",311);
@@ -87,7 +76,7 @@ for i in range(1,200):
    s2 = s2.format(i)
 
    s3 = 'INSERT INTO EnfermeiroInterv( EnfermeiroID, IntervID) VALUES ({},{});\n'
-   enfID = enfermeiros[ri(0,len(enfermeiros)-1)]
+   enfID = ri(301,366)
    s3 = s3.format(enfID,i)
    
    f.write(s)
@@ -107,7 +96,7 @@ for i in range(200,500):
    s2 = s2.format(i)
 
    s3 = 'INSERT INTO TecnicoInterv( TecnicoID, IntervID) VALUES ({},{});\n'
-   tecID = tecnicos[ri(0,len(tecnicos)-1)]
+   tecID = ri(367,382)
    s3 = s3.format(tecID,i)
    
    f.write(s)
@@ -127,7 +116,7 @@ for i in range(500,800):
    s2 = s2.format(i)
 
    s3 = 'INSERT INTO MedicoInterv( MedicoID, IntervID) VALUES ({},{});\n'
-   mID = medicos[ri(0,len(medicos)-1)]
+   mID = ri(383,426)
    s3 = s3.format(mID,i)
    
    f.write(s)
@@ -149,7 +138,7 @@ for i in range(800,950):
    s2 = s2.format(i,exames[ri(0,len(exames)-1)])
 
    s3 = 'INSERT INTO EnfermeiroExame( EnfermeiroID, ExameID) VALUES ({},{});\n'
-   enfID = enfermeiros[ri(0,len(enfermeiros)-1)]
+   enfID = ri(301,366)
    s3 = s3.format(enfID,i)
    
    f.write(s)
@@ -169,7 +158,7 @@ for i in range(950,1211):
    s2 = s2.format(i,exames[ri(0,len(exames)-1)])
 
    s3 = 'INSERT INTO TecnicoExame( TecnicoID, ExameID) VALUES ({},{});\n'
-   tecID = tecnicos[ri(0,len(tecnicos)-1)]
+   tecID = ri(367,382)
    s3 = s3.format(tecID,i)
    
    f.write(s)
@@ -189,7 +178,7 @@ for i in range(1211,1850):
    s2 = s2.format(i,exames[ri(0,len(exames)-1)])
 
    s3 = 'INSERT INTO MedicoExame( MedicoID, ExameID) VALUES ({},{});\n'
-   mID = medicos[ri(0,len(medicos)-1)]
+   mID = ri(383,426)
    s3 = s3.format(mID,i)
    
    f.write(s)
@@ -208,7 +197,7 @@ for i in range(1850,2300):
    s = s.format(i,di,a,q)
 
    s2 = 'INSERT INTO Consulta( EventoID, Diagnostico, Medico) VALUES ({},"{}",{});\n'
-   mID = medicos[ri(0,len(medicos)-1)]
+   mID = ri(383,426)
    s2 = s2.format(i,diagnosticos[ri(0,len(diagnosticos)-1)],mID)
    
    f.write(s)
@@ -226,10 +215,10 @@ for i in range(1850,2300):
 
    if(ri(0,100) < 70):
       df = random_date(di, "31/12/2019 23:59:59")
-      s2 = 'INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES ({},"{}","{}",0);\n'
+      s2 = 'INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES ({},"{}","{}",1);\n'
       s2 = s2.format(i,doencas[ri(0,len(doencas)-1)],df)
    else:
-      s2 = 'INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES ({},"{}",NULL,1);\n'
+      s2 = 'INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES ({},"{}",NULL,0);\n'
       s2 = s2.format(i,doencas[ri(0,len(doencas)-1)])
    
    f.write(s)
@@ -251,3 +240,5 @@ for i in range(1,501):
    
 f.close()
 data.close()
+
+print("Generated database.txt in %s seconds" % (time.time() - START_TIME))
