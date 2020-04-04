@@ -728,6 +728,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item deve ter um evento que esteja ligada a uma ocorrência (\textbf{PRIMARY KEY})
 	\item OcorrenciaID é uma chave estrangeira para Ocorrencia e EventoID é chave estrangeira para Evento
 	\item ao eliminar uma ocorrência que esteja mapeado num OcorrenciaEvento, eliminará também o OcorrenciaEvento, em caso de alteração, também alterará em OcorrenciaEvento. O mesmo aplica-se à chave estrangeira EventoID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
+	\item o paciente relacionado com a ocorrência deve ser o mesmo relacionado com a admissão à qual o evento está relacionado (\textbf{TRIGGER})
 \end{itemize}
 
 \end{document}
