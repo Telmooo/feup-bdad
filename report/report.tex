@@ -118,17 +118,14 @@
 
 O hospital é constituído por vários departamentos. Cada um destes tem nome, identificador, especializações e entidade responsável pelo departamento.
 
-Staff, pacientes e médicos de família são pessoas, acerca das quais interessa saber o nome, o seu número de identificação único (cartão de cidadão ou equivalente), a sua morada, o seu contacto telefónico, o seu número de beneficiário, o seu sexo e a sua data de nascimento.
+Staff e pacientes são pessoas, acerca das quais interessa saber o nome, o seu número de identificação único (cartão de cidadão ou equivalente), a sua morada, o seu contacto telefónico, o seu número de beneficiário, o seu sexo e a sua data de nascimento.
 
 A entidade responsável por um departamento é um membro da staff do hospital, podendo este tratar-se de um médico, enfermeiro ou técnico no hospital. Cada membro do staff tem o seu código identificador no hospital.
 
 Especificamente sobre os médicos, é necessário guardar o número do seu consultório no hospital (caso tenha) e a sua especialização (caso tenha).
-Sobre os enfermeiros, apenas é necessário guardar a sua especialização (caso tenha).
-Sobre os técnicos, apenas interessa guardar que serviço oferecem.
+Sobre os enfermeiros e os técnicos, apenas é necessário guardar a sua especialização (caso tenha).
 
-Sobre os médicos de família, interessa guardar o centro de saúde ao qual estão associados.
-
-O hospital guarda informação sobre os seus pacientes como o seu grupo sanguíneo, o subsistema de saúde ao qual o paciente está associado, o histórico das ocorrências de doenças que o paciente teve, o seu médico de família, os médicos atribuídos naquele hospital, e as suas admissões no hospital.
+O hospital guarda informação sobre os seus pacientes como o seu grupo sanguíneo, o subsistema de saúde ao qual o paciente está associado, o histórico das ocorrências de doenças que o paciente teve, os médicos atribuídos naquele hospital, e as suas admissões no hospital.
 
 Sobre cada doença interessa guardar o seu nome, uma descrição da doença e os seus sintomas predominantes.
 
@@ -248,6 +245,8 @@ Uma relação $R$ com dependências funcionais $FD$ está na terceira forma norm
 Vale notar que se uma relação estiver na forma normal Boyce-Codd (BCNF), esta também se encontra na terceira forma normal (3NF), já que as 3NF são um superconjunto das BCNF\\
 Se uma relação apenas consistir de dependências funcionais triviais, então a relação também está na forma normal de Boyce-Codd e por consequência na terceira forma normal.
 
+\newpage
+
 \section*{Pessoa}
 \begin{itemize}
 	\item PessoaID$\rightarrow$NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento
@@ -306,6 +305,8 @@ Como para cada dependência não trivial o conjunto de atributos no lado esquerd
 \]
 
 Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
+
+\newpage
 
 \section*{Horario}
 \begin{itemize}
@@ -411,6 +412,7 @@ Não tem dependências funcionais.
 
 Como para cada dependência não trivial o conjunto de atributos no lado esquerdo (\underline{A}) é composto por uma key, então esta relação está na forma normal de Boyce-Codd (BCNF) e por consequência também se encontra na terceira form normal (3NF)
 
+\newpage
 
 \section*{Intervencao}
 \begin{itemize}
@@ -515,6 +517,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item não é possível eliminar um membro da staff enquanto houver um enfermeiro mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no enfermeiro que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
+\newpage
+
 \subsubsection*{Tecnico}
 \begin{itemize}
 	\item cada técnico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{FOREIGN KEY})
@@ -524,7 +528,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 
 \subsubsection*{Medico}
 \begin{itemize}
-	\item cada médico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{FOREIGN KEY}}
+	\item cada médico tem o seu ID (\textbf{StaffID}) que é chave estrangeira para Staff (\textbf{FOREIGN KEY})
 	\item além disso, este ID deve ser único (\textbf{PRIMARY KEY})
 	\item não é possível eliminar um membro da staff enquanto houver um médico mapeado para esse membro da staff, mas pode-se alterar a staff que alterará também no médico que a mapeia (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item Consultorio é chave estrangeira para Quarto (\textbf{FOREIGN KEY})
@@ -539,6 +543,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item Departamento é chave estrangeira para Departamento
 	\item caso se elimine um departamento, será colocado a nulo o valor do departamento em todas as especializações que o mapeiem, em caso de alteração, será alterado também (\textbf{ON UPDATE CASCADE} e \textbf{ON DELETE SET NULL})
 \end{itemize}
+
+\newpage
 
 \section*{Horario}
 \begin{itemize}
@@ -590,6 +596,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item o nome da doença deve ser único (\textbf{UNIQUE})
 \end{itemize}
 
+\newpage
+
 \section*{Ocorrencia}
 \begin{itemize}
 	\item cada ocorrência tem um ID único (\textbf{PRIMARY KEY})
@@ -613,6 +621,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item não é possível eliminar uma admissão nem um quarto enquanto houver ocorrências a mapeá-los, em caso de alteração, estas também são aplicadas nas ocorrências que os mapeiam (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item a data do evento deve ser maior que a data de admissão (\textbf{TRIGGER})
 \end{itemize}
+
+\newpage
 
 \section*{Invervencao}
 \begin{itemize}
@@ -638,6 +648,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item não é possível eliminar um evento se houver uma consulta que o mapeia, em caso de alterações, estas também são aplicadas nas consulta que os mapeiam. O mesmo se aplica para a chave estrangeira Medico (\textbf{ON DELETE RESTRICT} e \textbf{ON UPDATE CASCADE})
 	\item um médico não pode ter duas consultas na mesma hora de ínicio (\textbf{TRIGGER})
 \end{itemize}
+
+\newpage
 
 \section*{Internamento}
 \begin{itemize}
@@ -686,6 +698,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item ao eliminar um técnico que esteja mapeado num TecnicoInterv, eliminará também o TecnicoInterv, em caso de alteração, também alterará em TecnicoInterv. O mesmo aplica-se à chave estrangeira IntervID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
 
+\newpage
+
 \section*{TecnicoExame}
 \begin{itemize}
 	\item deve ter um exame ao qual foi atribuído um técnico (\textbf{PRIMARY KEY})
@@ -706,6 +720,8 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item MedicoID é uma chave estrangeira para Medico e ExameID é chave estrangeira para Exame
 	\item ao eliminar um médico que esteja mapeado num MedicoExame, eliminará também o MedicoExame, em caso de alteração, também alterará em MedicoExame. O mesmo aplica-se à chave estrangeira ExameID (\textbf{ON DELETE CASCADE} e \textbf{ON UPDATE CASCADE})
 \end{itemize}
+
+\newpage
 
 \section*{OcorrenciaEvento}
 \begin{itemize}
