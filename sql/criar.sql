@@ -42,11 +42,11 @@ CREATE TABLE Staff (
         PessoaID            INTEGER CONSTRAINT StaffPK PRIMARY KEY,
         CodigoIdentificacao INTEGER NOT NULL UNIQUE,
         Especializacao      TEXT,
-        FOREIGN KEY (PessoaID)
+        CONSTRAINT StaffPessoaFK FOREIGN KEY (PessoaID)
             REFERENCES Pessoa (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        FOREIGN KEY (Especializacao)
+        CONSTRAINT StaffEspecializacaoFK FOREIGN KEY (Especializacao)
             REFERENCES Especializacao (EspecializacaoID)
                 ON UPDATE CASCADE
                 ON DELETE SET NULL
@@ -54,7 +54,7 @@ CREATE TABLE Staff (
 
 CREATE TABLE Enfermeiro (
         StaffID             INTEGER CONSTRAINT EnfermeiroPK PRIMARY KEY,
-        FOREIGN KEY (StaffID)
+        CONSTRAINT EnfermeiroStaffFK FOREIGN KEY (StaffID)
             REFERENCES Staff (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
@@ -62,7 +62,7 @@ CREATE TABLE Enfermeiro (
 
 CREATE TABLE Tecnico (
         StaffID             INTEGER CONSTRAINT TecnicoPK PRIMARY KEY,
-        FOREIGN KEY (StaffID)
+        CONSTRAINT TecnicoStaffFK FOREIGN KEY (StaffID)
             REFERENCES Staff (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
@@ -71,11 +71,11 @@ CREATE TABLE Tecnico (
 CREATE TABLE Medico (
         StaffID             INTEGER CONSTRAINT MedicoPK PRIMARY KEY,
         Consultorio         INTEGER UNIQUE,
-        FOREIGN KEY (StaffID)
+        CONSTRAINT MedicoStaffFK FOREIGN KEY (StaffID)
             REFERENCES Staff (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        FOREIGN KEY (Consultorio)
+        CONSTRAINT MedicoQuartoFK FOREIGN KEY (Consultorio)
             REFERENCES Quarto (Numero)
                 ON UPDATE CASCADE
                 ON DELETE SET NULL
@@ -85,7 +85,7 @@ CREATE TABLE Especializacao (
         EspecializacaoID    INTEGER CONSTRAINT EspecializacaoPK PRIMARY KEY,
         Nome                TEXT    NOT NULL UNIQUE,
         Departamento        INTEGER,
-        FOREIGN KEY (Departamento)
+        CONSTRAINT EspecializacaoDepartamentoFK FOREIGN KEY (Departamento)
             REFERENCES Departamento (NumIdentificador)
                 ON UPDATE CASCADE
                 ON DELETE SET NULL
@@ -96,14 +96,14 @@ CREATE TABLE Horario (
         DiaSemana           TEXT    NOT NULL,
         HoraInicio          TEXT    NOT NULL,
         HoraFim             TEXT    NOT NULL,
-        CHECK (HoraInicio < HoraFim)
+        CONSTRAINT HorarioDatas CHECK (HoraInicio < HoraFim)
 );
 
 CREATE TABLE Departamento (
         NumIdentificador    INTEGER CONSTRAINT DepartamentoPK PRIMARY KEY,
         Nome                TEXT    NOT NULL,
         Responsavel         INTEGER NOT NULL UNIQUE,
-        FOREIGN KEY (Responsavel)
+        CONSTRAINT DepartamentoStaffFK FOREIGN KEY (Responsavel)
             REFERENCES Staff (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
@@ -113,11 +113,11 @@ CREATE TABLE Paciente (
         PessoaID            INTEGER CONSTRAINT PacientePK PRIMARY KEY,
         GrupoSanguineo      TEXT    NOT NULL,
         SubsistemaSaude     TEXT,
-        FOREIGN KEY (PessoaID)
+        CONSTRAINT PacientePessoaFK FOREIGN KEY (PessoaID)
             REFERENCES Pessoa (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        FOREIGN KEY (SubsistemaSaude)
+        CONSTRAINT PacienteSubsistemaSaudeFK FOREIGN KEY (SubsistemaSaude)
             REFERENCES SubsistemaSaude (SubsistemaSaudeID)
                 ON UPDATE CASCADE
                 ON DELETE SET NULL
@@ -134,11 +134,12 @@ CREATE TABLE Admissao (
         Urgencia            INTEGER NOT NULL DEFAULT 0,
         Prioridade          INTEGER NOT NULL DEFAULT 0,
         Paciente            INTEGER NOT NULL,
-        FOREIGN KEY (Paciente)
+        CONSTRAINT AdmissaoPacienteFK FOREIGN KEY (Paciente)
             REFERENCES Paciente (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        CONSTRAINT MesmaAdmissao UNIQUE(Data, Paciente)
+        CONSTRAINT MesmaAdmissao UNIQUE(Data, Paciente),
+        CONSTRAINT UrgenciaPrioridade CHECK ((Urgencia == 0 AND Prioridade == 0) OR (Urgencia == 1 AND Prioridade > 0))
 );
 
 CREATE TABLE Doenca (
@@ -154,16 +155,16 @@ CREATE TABLE Ocorrencia (
         DataFim             TEXT,
         Paciente            INTEGER NOT NULL,
         Doenca              INTEGER NOT NULL,
-        FOREIGN KEY (Paciente)
+        CONSTRAINT OcorrenciaPessoaFK FOREIGN KEY (Paciente)
             REFERENCES Paciente (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        FOREIGN KEY (Doenca)
+        CONSTRAINT OcorrenciaDoencaFK FOREIGN KEY (Doenca)
             REFERENCES Doenca (DoencaID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
         CONSTRAINT MesmaOcorrencia UNIQUE(DataInicio, Paciente, Doenca),
-        CHECK ((DataFim IS NULL) OR (DataInicio < DataFim))
+        CONSTRAINT OcorrenciaDataFim CHECK ((DataFim IS NULL) OR (DataInicio < DataFim))
 );
 
 CREATE TABLE Quarto (
@@ -176,11 +177,11 @@ CREATE TABLE Evento (
         Data                TEXT    NOT NULL,
         Admissao            INTEGER NOT NULL,
         Quarto              INTEGER NOT NULL,
-        FOREIGN KEY (Admissao)
+        CONSTRAINT EventoAdmissaoFK FOREIGN KEY (Admissao)
             REFERENCES Admissao (AdmissaoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        FOREIGN KEY (Quarto)
+        CONSTRAINT EventoQuartoFK FOREIGN KEY (Quarto)
             REFERENCES Quarto (Numero)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
@@ -189,7 +190,7 @@ CREATE TABLE Evento (
 CREATE TABLE Intervencao (
         EventoID            INTEGER CONSTRAINT IntervencaoPK PRIMARY KEY,
         Descricao           TEXT    NOT NULL,
-        FOREIGN KEY (EventoID)
+        CONSTRAINT IntervencaoEventoFK FOREIGN KEY (EventoID)
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
@@ -199,7 +200,7 @@ CREATE TABLE Exame (
         EventoID            INTEGER CONSTRAINT ExamePK PRIMARY KEY,
         Nome                TEXT    NOT NULL,
         Descricao           TEXT    NOT NULL,
-        FOREIGN KEY (EventoID)
+        CONSTRAINT ExameEventoFK FOREIGN KEY (EventoID)
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
@@ -209,12 +210,12 @@ CREATE TABLE Consulta (
         EventoID            INTEGER CONSTRAINT ConsultaPK PRIMARY KEY,
         Diagnostico         TEXT    NOT NULL,
         Medico              INTEGER NOT NULL,
-        FOREIGN KEY (EventoID)
+        CONSTRAINT ConsultaEventoFK FOREIGN KEY (EventoID)
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        FOREIGN KEY (Medico)
-            REFERENCES Medico (MedicoID)
+        CONSTRAINT ConsultaMedicoFK FOREIGN KEY (Medico)
+            REFERENCES Medico (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT
 );
@@ -224,22 +225,22 @@ CREATE TABLE Internamento (
         Motivo              TEXT    NOT NULL,
         DataFim             TEXT,
         Ativo               INTEGER NOT NULL,
-        FOREIGN KEY (EventoID)
+        CONSTRAINT InternamentoEventoFK FOREIGN KEY (EventoID)
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        CHECK ((Ativo == 0 AND DataFim IS NULL) OR (Ativo == 1 AND DataFim IS NOT NULL))
+        CONSTRAINT InternamentoEstado CHECK ((Ativo == 0 AND DataFim IS NULL) OR (Ativo == 1 AND DataFim IS NOT NULL))
 );
 
 CREATE TABLE HorarioTrabalho (
         StaffID             INTEGER,
         HorarioID           INTEGER,
         CONSTRAINT HorarioTrabalhoPK PRIMARY KEY (StaffID, HorarioID),
-        FOREIGN KEY (StaffID)
+        CONSTRAINT HorarioTrabalhoStaffFK FOREIGN KEY (StaffID)
             REFERENCES Staff (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (HorarioID)
+        CONSTRAINT HorarioTrabalhoHorarioFK FOREIGN KEY (HorarioID)
             REFERENCES Horario (HorarioID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -249,11 +250,11 @@ CREATE TABLE MedicoAtribuido (
         PacienteID          INTEGER,
         MedicoID            INTEGER,
         CONSTRAINT MedicoAtribuidoPK PRIMARY KEY (PacienteID, MedicoID),
-        FOREIGN KEY (PacienteID)
+        CONSTRAINT MedicoAtribuidoPacienteFK FOREIGN KEY (PacienteID)
             REFERENCES Paciente (PessoaID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (MedicoID)
+        CONSTRAINT MedicoAtribuidoMedicoFK FOREIGN KEY (MedicoID)
             REFERENCES Medico (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -263,11 +264,11 @@ CREATE TABLE EnfermeiroInterv (
         EnfermeiroID        INTEGER,
         IntervID            INTEGER,
         CONSTRAINT EnfermeiroIntervPK PRIMARY KEY (EnfermeiroID, IntervID),
-        FOREIGN KEY (EnfermeiroID)
+        CONSTRAINT EnfermeiroIntervEnfermeiroFK FOREIGN KEY (EnfermeiroID)
             REFERENCES Enfermeiro (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (IntervID)
+        CONSTRAINT EnfermeiroIntervIntervencaoFK FOREIGN KEY (IntervID)
             REFERENCES Intervencao (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -277,11 +278,11 @@ CREATE TABLE EnfermeiroExame (
         EnfermeiroID        INTEGER,
         ExameID             INTEGER,
         CONSTRAINT EnfermeiroExamePK PRIMARY KEY (EnfermeiroID, ExameID),
-        FOREIGN KEY (EnfermeiroID)
+        CONSTRAINT EnfermeiroExameEnfermeiroFK FOREIGN KEY (EnfermeiroID)
             REFERENCES Enfermeiro (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (ExameID)
+        CONSTRAINT EnfermeiroExameExameFK FOREIGN KEY (ExameID)
             REFERENCES Exame (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -291,11 +292,11 @@ CREATE TABLE TecnicoInterv (
         TecnicoID           INTEGER,
         IntervID            INTEGER,
         CONSTRAINT TecnicoIntervPK PRIMARY KEY (TecnicoID, IntervID),
-        FOREIGN KEY (TecnicoID)
+        CONSTRAINT TecnicoIntervTecnicoFK FOREIGN KEY (TecnicoID)
             REFERENCES Tecnico (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (IntervID)
+        CONSTRAINT TecnicoIntervIntervencaoFK FOREIGN KEY (IntervID)
             REFERENCES Intervencao (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -305,11 +306,11 @@ CREATE TABLE TecnicoExame (
         TecnicoID           INTEGER,
         ExameID             INTEGER,
         CONSTRAINT TecnicoExamePK PRIMARY KEY (TecnicoID, ExameID),
-        FOREIGN KEY (TecnicoID)
+        CONSTRAINT TecnicoExameTecnicoFK FOREIGN KEY (TecnicoID)
             REFERENCES Tecnico (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (ExameID)
+        CONSTRAINT TecnicoExameExameFK FOREIGN KEY (ExameID)
             REFERENCES Exame (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -319,11 +320,11 @@ CREATE TABLE MedicoInterv (
         MedicoID            INTEGER,
         IntervID            INTEGER,
         CONSTRAINT MedicoIntervPK PRIMARY KEY (MedicoID, IntervID),
-        FOREIGN KEY (MedicoID)
+        CONSTRAINT MedicoIntervMedicoFK FOREIGN KEY (MedicoID)
             REFERENCES Medico (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (IntervID)
+        CONSTRAINT MedicoIntervIntervencaoFK FOREIGN KEY (IntervID)
             REFERENCES Intervencao (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -333,11 +334,11 @@ CREATE TABLE MedicoExame (
         MedicoID            INTEGER,
         ExameID             INTEGER,
         CONSTRAINT MedicoExamePK PRIMARY KEY (MedicoID, ExameID),
-        FOREIGN KEY (MedicoID)
+        CONSTRAINT MedicoExameMedicoFK FOREIGN KEY (MedicoID)
             REFERENCES Medico (StaffID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (ExameID)
+        CONSTRAINT MedicoExameExameFK FOREIGN KEY (ExameID)
             REFERENCES Exame (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE
@@ -347,11 +348,11 @@ CREATE TABLE OcorrenciaEvento (
         OcorrenciaID        INTEGER,
         EventoID            INTEGER,
         CONSTRAINT OcorrenciaEventoPK PRIMARY KEY (OcorrenciaID, EventoID),
-        FOREIGN KEY (OcorrenciaID)
+        CONSTRAINT OcorrenciaEventoOcorrenciaFK FOREIGN KEY (OcorrenciaID)
             REFERENCES Ocorrencia (OcorrenciaID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE,
-        FOREIGN KEY (EventoID)
+        CONSTRAINT OcorrenciaEventoEventoFK FOREIGN KEY (EventoID)
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE CASCADE

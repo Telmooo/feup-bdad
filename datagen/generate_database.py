@@ -8,7 +8,7 @@ full_path = lambda filename: abspath(join(dirname(__file__), filename))
 
 OUTFILE = full_path("database.txt")
 
-DATE_FORMAT = "%d/%m/%Y %H:%M:%S"
+DATE_FORMAT = "%Y/%m/%d %H:%M:%S"
 
 FILES = {
     'M': full_path("male_firstname.txt"),
@@ -37,6 +37,7 @@ SEP = "\n\n"
 
 def init_diseases(output):
     global N_DISEASES
+    N_DISEASES = 0
     output.write("-- Diseases\n")
     with open(FILES['diseases']) as diseases_file:
         for line in diseases_file:
@@ -46,6 +47,7 @@ def init_diseases(output):
 
 def init_spec(output):
     global N_SPEC
+    N_SPEC = 0
     output.write("-- Specialities\n")
     with open(FILES['spec']) as specs_file:
         for line in specs_file:
@@ -79,6 +81,7 @@ def get_random_schedule_hour(fromHour):
 def init_schedule(output):
     output.write("-- Schedule\n")
     global N_SCHEDULES
+    N_SCHEDULES = 0
     for day in WEEK_DAYS:
         day_sched = 0
         beginH, beginM = 0, 0
@@ -158,7 +161,7 @@ def generate_persons(output):
         numbenef = num_benef[i]
         gender = random.choice(('M', 'F'))
         name = get_full_name(gender)
-        birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
+        birth = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
 
@@ -182,7 +185,7 @@ def generate_persons(output):
         numbenef = num_benef[i]
         gender = random.choice(('M', 'F'))
         name = get_full_name(gender)
-        birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
+        birth = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
 
@@ -217,7 +220,7 @@ def generate_persons(output):
         numbenef = num_benef[i]
         gender = random.choice(('M', 'F'))
         name = get_full_name(gender)
-        birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
+        birth = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
 
@@ -253,7 +256,7 @@ def generate_persons(output):
         numbenef = num_benef[i]
         gender = random.choice(('M', 'F'))
         name = get_full_name(gender)
-        birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
+        birth = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
 
@@ -332,4 +335,3 @@ def main():
 
     output.close()
 
-main()

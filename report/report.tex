@@ -583,7 +583,7 @@ Não tem dependências funcionais não triviais, logo, esta relação encontra-s
 	\item cada admissão tem um ID único (\textbf{PRIMARY KEY})
 	\item cada admissão tem uma data e um paciente (\textbf{NOT NULL})
 	\item uma admissão pode ser urgência ou não (isto é, tem o valor 1 ou 0, respetivamente), por omissão trata-se de uma admissão não urgente (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
-	\item caso seja uma admissão de urgência a prioridade deve ter um valor maior que 0, em caso não urgente, a prioridade por omissão é 0 (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
+	\item caso seja uma admissão de urgência a prioridade deve ter um valor maior que 0, em caso não urgente, a prioridade é 0 (\textbf{NOT NULL}, \textbf{CHECK} e \textbf{DEFAULT})
 	\item Paciente é chave estrangeira para Paciente (\textbf{FOREIGN KEY})
 	\item não é possível eliminar um paciente caso este esteja mapeado em Admissao, e alterar um paciente altera também em Admissao (\textbf{ON UPDATE CASCADE} e \textbf{ON DELETE RESTRICT})
 	\item um paciente não pode ter duas admissões na mesma hora do mesmo dia (datas idênticas) (\textbf{UNIQUE})

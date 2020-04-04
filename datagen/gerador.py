@@ -1,4 +1,5 @@
 from random import randint as ri
+import random
 from generate_database import random_date
 from generate_database import main
 from generate_database import START_TIME
@@ -18,7 +19,7 @@ for line in data:
 f.write('''\n-- Departments
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (1,"Cardiologia",311);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (2,"Triagem de mama",352);
-INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (3,"Diagnóstico por imagem",389);
+INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (3,"Diagnostico por imagem",389);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (4,"Otorrinolaringologia",360);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (5,"Geriatria",406);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (6,"Gastroenterologia",383);
@@ -27,8 +28,8 @@ INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (8,"Ginecolo
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (9,"Maternidade",323);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (10,"Microbiologia",314);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (11,"Neurologia",309);
-INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (12,"Nutrição",302);
-INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (13,"Obstetrícia",368);
+INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (12,"Nutricao",302);
+INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (13,"Obstetricia",368);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (14,"Terapia Ocupacional",324);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (15,"Oncologia",387);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (16,"Oftalmologia",364);
@@ -45,9 +46,13 @@ f.write("\n-- Admission\n")
 for i in range(1,200):
    s = 'INSERT INTO Admissao (AdmissaoID, Data, Urgencia, Prioridade, Paciente) VALUES ({}, "{}", {}, {}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
    
-   s = s.format(i,di,ri(0,3),ri(0,3),ri(1,300))
+   urgencia = ri(0, 1)
+   prioridade = 0
+   if (urgencia == 1):
+       prioridade = ri(1, 10)
+   s = s.format(i,di,urgencia,prioridade,ri(1,300))
    
    f.write(s)
 
@@ -56,8 +61,8 @@ f.write("\n-- Occurrence\n")
 for i in range(1,200):
    s = 'INSERT INTO Ocorrencia(OcorrenciaID, DataInicio, DataFim, Paciente, Doenca) VALUES ({}, "{}", "{}", {}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   df = random_date(di, "31/12/2019 23:59:59")
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   df = random_date(di, "2019/12/31 23:59:59")
    
    s = s.format(i,di,df,ri(1,300),ri(1,232))
    
@@ -67,8 +72,8 @@ f.write("\n-- Nurse Intervention\n")
 for i in range(1,200):
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -87,8 +92,8 @@ f.write("\n-- Tecnician Intervention\n")
 for i in range(200,500):
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -107,8 +112,8 @@ f.write("\n-- Medical Intervention\n")
 for i in range(500,800):
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -129,8 +134,8 @@ f.write("\n-- Nurse Exam\n")
 for i in range(800,950):
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -149,8 +154,8 @@ f.write("\n-- Tecnician Exam\n")
 for i in range(950,1211):
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -169,8 +174,8 @@ f.write("\n-- Medical Exam\n")
 for i in range(1211,1850):
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -191,8 +196,8 @@ for i in range(1850,2300):
    
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
@@ -204,17 +209,17 @@ for i in range(1850,2300):
    f.write(s2)
 
 f.write("\n-- Internamento\n")
-for i in range(1850,2300):
+for i in range(2300,2750):
       
    s = 'INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES ({}, "descricao","{}" ,{}, {});\n'
 
-   di = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
-   a = ri(1,500)
+   di = random_date("1970/01/01 00:00:00", "2019/12/31 23:59:59")
+   a = ri(1,199)
    q = ri(100,249)
    s = s.format(i,di,a,q)
 
    if(ri(0,100) < 70):
-      df = random_date(di, "31/12/2019 23:59:59")
+      df = random_date(di, "2019/12/31 23:59:59")
       s2 = 'INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES ({},"{}","{}",1);\n'
       s2 = s2.format(i,doencas[ri(0,len(doencas)-1)],df)
    else:
@@ -226,9 +231,9 @@ for i in range(1850,2300):
 
 unique = []
 f.write("\n-- Event Occourence\n")
-for i in range(1,501):
+for i in range(1,200):
 
-   ev = ri(1,2399)
+   ev = ri(1,2749)
    if(ev in unique):
       continue
    unique.append(ev)
