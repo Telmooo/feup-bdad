@@ -50,14 +50,14 @@ def init_spec(output):
             spec = (line.split('\n'))[0]
             N_SPEC += 1
             output.write(f"INSERT INTO Especializacao (EspecializacaoID, Nome) VALUES ({N_SPEC}, \"{spec}\");\n")
-            
+
 def init_rooms(output):
     i = 0
     output.write("-- Rooms\n")
     while (i < N_ROOMS):
         output.write(f"INSERT INTO Quarto (Numero) VALUES ({START_ROOM + i});\n")
         i += 1
-        
+
 def init_subsys(output):
     i = 1
     output.write("-- Health Subsystems\n")
@@ -70,7 +70,7 @@ def get_random_schedule_hour(fromHour):
     hour = min(fromHour + random.choice([4, 6, 8, 10, 12]), 23)
     if (hour == 23 and hour - fromHour < 4):
         minute = 59
-        
+
     return hour, minute
 
 
@@ -123,7 +123,7 @@ def get_random_spec():
     return 1 + int(random.random() * N_SPEC)
 
 def random_date(start, end):
-    
+
     proportion = random.random()
 
     stime = time.mktime(time.strptime(start, DATE_FORMAT))
@@ -146,7 +146,7 @@ def generate_persons(output):
     ccs = random.sample(range(10000000, 100000000), total)
     num_benef = random.sample(range(100000000, 1000000000), total)
     staff_id = random.sample(range(1000, 10000), N_NURSE + N_TECH + N_DOCTORS)
-    
+
     i = 0
     #patients
     output.write("-- Patients\n")
@@ -159,7 +159,7 @@ def generate_persons(output):
         birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
-        
+
         bloodt = get_random_bloodtype()
         r = random.random()
         if (r < 0.4):
@@ -167,10 +167,10 @@ def generate_persons(output):
             output.write(f"INSERT INTO Paciente (PessoaID, GrupoSanguineo, SubsistemaSaude) VALUES ({i+1}, \"{bloodt}\", {health_sub});\n")
         else:
             output.write(f"INSERT INTO Paciente (PessoaID, GrupoSanguineo) VALUES ({i+1}, \"{bloodt}\");\n")
-        
-        
+
+
         i+=1
-    
+
     #nurse
     output.write(SEP)
     output.write("-- Nurses\n")
@@ -183,29 +183,29 @@ def generate_persons(output):
         birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
-        
+
         staffid = staff_id[i-N_PATIENTS]
         spec = get_random_spec()
         output.write(f"INSERT INTO Staff (PessoaID, CodigoIdentificacao, Especializacao) VALUES ({i+1}, {staffid}, {spec});\n")
-        
-        output.write(f"INSERT INTO Enfermeiro (StaffID) VALUES ({staffid});\n")
-        
+
+        output.write(f"INSERT INTO Enfermeiro (StaffID) VALUES ({i+1});\n")
+
         sched_count = 0
         for weekday in range(len(WEEK_DAYS)):
             r = random.random()
-            
+
             if (r < 0.5):
                 sched = get_random_schedule(weekday)
-            
-                output.write(f"INSERT INTO HorarioTrabalho (StaffID, HorarioID) VALUES ({staffid}, {sched});\n")
+
+                output.write(f"INSERT INTO HorarioTrabalho (StaffID, HorarioID) VALUES ({i+1}, {sched});\n")
                 sched_count+=1
-            
+
             if sched_count == 6:
                 break
-        
-        
+
+
         i+=1
-        
+
     #tech
     output.write(SEP)
     output.write("-- Technicians\n")
@@ -218,29 +218,29 @@ def generate_persons(output):
         birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
-        
+
         staffid = staff_id[i-N_PATIENTS]
         spec = get_random_spec()
         output.write(f"INSERT INTO Staff (PessoaID, CodigoIdentificacao, Especializacao) VALUES ({i+1}, {staffid}, {spec});\n")
-        
-        output.write(f"INSERT INTO Tecnico (StaffID) VALUES ({staffid});\n")
-        
+
+        output.write(f"INSERT INTO Tecnico (StaffID) VALUES ({i+1});\n")
+
         sched_count = 0
         for weekday in range(len(WEEK_DAYS)):
             r = random.random()
-            
+
             if (r < 0.5):
                 sched = get_random_schedule(weekday)
-            
-                output.write(f"INSERT INTO HorarioTrabalho (StaffID, HorarioID) VALUES ({staffid}, {sched});\n")
+
+                output.write(f"INSERT INTO HorarioTrabalho (StaffID, HorarioID) VALUES ({i+1}, {sched});\n")
                 sched_count+=1
-            
+
             if sched_count == 6:
                 break
-        
-        
+
+
         i+=1
-    
+
     #doctors
     output.write(SEP)
     output.write("-- Doctors\n")
@@ -254,81 +254,80 @@ def generate_persons(output):
         birth = random_date("01/01/1970 00:00:00", "31/12/2019 23:59:59")
         address = "morada"
         output.write(f"INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBeneficiario, Sexo, DataNascimento) VALUES ({i+1}, {cc}, \"{name}\", \"{address}\", {phone}, {numbenef}, \"{gender}\", \"{birth}\");\n")
-        
+
         staffid = staff_id[i-N_PATIENTS]
         spec = get_random_spec()
         output.write(f"INSERT INTO Staff (PessoaID, CodigoIdentificacao, Especializacao) VALUES ({i+1}, {staffid}, {spec});\n")
-        
+
         if (len(used) < N_ROOMS):
             room = START_ROOM + int(random.random() * N_ROOMS)
             while (room in used):
                 room = START_ROOM + int(random.random() * N_ROOMS)
-            
-            output.write(f"INSERT INTO Medico (StaffID, Consultorio) VALUES ({staffid}, {room});\n")
+
+            output.write(f"INSERT INTO Medico (StaffID, Consultorio) VALUES ({i+1}, {room});\n")
             used.append(room)
         else:
-            output.write(f"INSERT INTO Medico (StaffID) VALUES ({staffid});\n")
-        
+            output.write(f"INSERT INTO Medico (StaffID) VALUES ({i+1});\n")
+
         sched_count = 0
         for weekday in range(len(WEEK_DAYS)):
             r = random.random()
-            
+
             if (r < 0.5):
                 sched = get_random_schedule(weekday)
-            
-                output.write(f"INSERT INTO HorarioTrabalho (StaffID, HorarioID) VALUES ({staffid}, {sched});\n")
+
+                output.write(f"INSERT INTO HorarioTrabalho (StaffID, HorarioID) VALUES ({i+1}, {sched});\n")
                 sched_count+=1
-            
+
             if sched_count == 6:
                 break
-        
-        
+
+
         i+=1
-        
-    
+
+
 def distribute_doctors(output):
     output.write("-- Distribution of doctors to patients\n")
     for j in range(1, N_PATIENTS + 1):
         r = random.random()
-        
+
         if (r < 0.6):
             doc = get_random_doctor()
             output.write(f"INSERT INTO MedicoAtribuido (PacienteID, MedicoID) VALUES ({j}, {doc});\n")
-        
-    
+
+
 def main():
     output = open(OUTFILE, "w")
-    output.write("PRAGMA foreign_key = ON;\n")
-    
+    output.write("PRAGMA foreign_keys=ON;\n")
+
     output.write(SEP)
-    
+
     init_diseases(output)
-    
+
     output.write(SEP)
-    
+
     init_spec(output)
-    
+
     output.write(SEP)
-    
+
     init_rooms(output)
-    
+
     output.write(SEP)
-    
+
     init_subsys(output)
-    
+
     output.write(SEP)
-    
+
     init_schedule(output)
-    
+
     output.write(SEP)
-    
+
     generate_persons(output)
-    
+
     output.write(SEP)
-    
+
     distribute_doctors(output)
-    
+
     output.close()
-    
+
 main()
-    
