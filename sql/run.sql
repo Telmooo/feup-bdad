@@ -3,4 +3,4 @@
 
 .header on
 .mode columns
-.width 50
+.width 10 40 40 40 40 40 40 40 40
