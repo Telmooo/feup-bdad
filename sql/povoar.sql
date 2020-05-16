@@ -1,3 +1,34 @@
+PRAGMA foreign_keys=OFF;
+
+DELETE FROM Pessoa;
+DELETE FROM Staff;
+DELETE FROM Enfermeiro;
+DELETE FROM Tecnico;
+DELETE FROM Medico;
+DELETE FROM Especializacao;
+DELETE FROM Horario;
+DELETE FROM Departamento;
+DELETE FROM Paciente;
+DELETE FROM SubsistemaSaude;
+DELETE FROM Admissao;
+DELETE FROM Doenca;
+DELETE FROM Ocorrencia;
+DELETE FROM Quarto;
+DELETE FROM Evento;
+DELETE FROM Intervencao;
+DELETE FROM Exame;
+DELETE FROM Consulta;
+DELETE FROM Internamento;
+DELETE FROM HorarioTrabalho;
+DELETE FROM MedicoAtribuido;
+DELETE FROM EnfermeiroInterv;
+DELETE FROM EnfermeiroExame;
+DELETE FROM TecnicoInterv;
+DELETE FROM TecnicoExame;
+DELETE FROM MedicoInterv;
+DELETE FROM MedicoExame;
+DELETE FROM OcorrenciaEvento;
+
 PRAGMA foreign_keys=ON;
 
 
@@ -53,7 +84,7 @@ INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (48, "Ear infect
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (49, "Ebola", "Viral haemorrhagic fever caused by ebolaviruses", "Fever, sore throat, muscular pain and headache");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (50, "Encephalitis", "Inflammation of the brain", "Headache, fever, confusion, stiff neck and vomiting");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (51, "Emphysema", "Chronic obstructive pulmonary disease", "Dyspnea, coughing, wheezing, chest tightness");
-INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (52, "Epilepsy", "Central nervous system disorder causing seizures or periods of unusual behavior", "Temporary confusion, staring spell, uncontrollable movements of arms and legs, loss of consciousness and anxiety"); 
+INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (52, "Epilepsy", "Central nervous system disorder causing seizures or periods of unusual behavior", "Temporary confusion, staring spell, uncontrollable movements of arms and legs, loss of consciousness and anxiety");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (53, "Erectile dysfunction", "Inability to achieve or sustain an erection", "Difficulty developing an erection, difficulty maintaining an erection and reduced rigidity of the erection");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (54, "Fibromyalgia", "Neurosensory disorder characterized by chronic musculocutaneous pain", "Pain in tender points, headache, fatigue, morning stiffness, unrefreshing sleep, cognitive dysfunction, paresthesia");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (55, "Foodborne illness", "Disease that occurs following the ingestion of contaminated food or water", "Diarrhea, paralysis, flushing, urticaria and jaundice");

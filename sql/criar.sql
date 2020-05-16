@@ -1,3 +1,5 @@
+PRAGMA foreign_keys=OFF;
+
 DROP TABLE IF EXISTS Pessoa;
 DROP TABLE IF EXISTS Staff;
 DROP TABLE IF EXISTS Enfermeiro;

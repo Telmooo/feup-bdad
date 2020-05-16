@@ -3,4 +3,5 @@
 
 .header on
 .mode columns
-.width 10 40 40 40 40 40 40 40 40
+.width 20 20 20 20 20 20 20 20 20
+.nullvalue NULL
