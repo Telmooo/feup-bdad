@@ -1,34 +1,3 @@
-PRAGMA foreign_keys=OFF;
-
-DELETE FROM Pessoa;
-DELETE FROM Staff;
-DELETE FROM Enfermeiro;
-DELETE FROM Tecnico;
-DELETE FROM Medico;
-DELETE FROM Especializacao;
-DELETE FROM Horario;
-DELETE FROM Departamento;
-DELETE FROM Paciente;
-DELETE FROM SubsistemaSaude;
-DELETE FROM Admissao;
-DELETE FROM Doenca;
-DELETE FROM Ocorrencia;
-DELETE FROM Quarto;
-DELETE FROM Evento;
-DELETE FROM Intervencao;
-DELETE FROM Exame;
-DELETE FROM Consulta;
-DELETE FROM Internamento;
-DELETE FROM HorarioTrabalho;
-DELETE FROM MedicoAtribuido;
-DELETE FROM EnfermeiroInterv;
-DELETE FROM EnfermeiroExame;
-DELETE FROM TecnicoInterv;
-DELETE FROM TecnicoExame;
-DELETE FROM MedicoInterv;
-DELETE FROM MedicoExame;
-DELETE FROM OcorrenciaEvento;
-
 PRAGMA foreign_keys=ON;
 
 
@@ -84,7 +53,7 @@ INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (48, "Ear infect
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (49, "Ebola", "Viral haemorrhagic fever caused by ebolaviruses", "Fever, sore throat, muscular pain and headache");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (50, "Encephalitis", "Inflammation of the brain", "Headache, fever, confusion, stiff neck and vomiting");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (51, "Emphysema", "Chronic obstructive pulmonary disease", "Dyspnea, coughing, wheezing, chest tightness");
-INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (52, "Epilepsy", "Central nervous system disorder causing seizures or periods of unusual behavior", "Temporary confusion, staring spell, uncontrollable movements of arms and legs, loss of consciousness and anxiety");
+INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (52, "Epilepsy", "Central nervous system disorder causing seizures or periods of unusual behavior", "Temporary confusion, staring spell, uncontrollable movements of arms and legs, loss of consciousness and anxiety"); 
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (53, "Erectile dysfunction", "Inability to achieve or sustain an erection", "Difficulty developing an erection, difficulty maintaining an erection and reduced rigidity of the erection");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (54, "Fibromyalgia", "Neurosensory disorder characterized by chronic musculocutaneous pain", "Pain in tender points, headache, fatigue, morning stiffness, unrefreshing sleep, cognitive dysfunction, paresthesia");
 INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas) VALUES (55, "Foodborne illness", "Disease that occurs following the ingestion of contaminated food or water", "Diarrhea, paralysis, flushing, urticaria and jaundice");
@@ -2185,6 +2154,60 @@ INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (21,"Unidade
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (22,"Reumatologia",371);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (23,"Saude Sexual",372);
 INSERT INTO Departamento (NumIdentificador,Nome,Responsavel) VALUES (24,"Urologia",377);
+
+-- Specialities
+UPDATE Especializacao SET Departamento = 1 WHERE EspecializacaoID = 1;
+UPDATE Especializacao SET Departamento = 1 WHERE EspecializacaoID = 2;
+UPDATE Especializacao SET Departamento = 2 WHERE EspecializacaoID = 3;
+UPDATE Especializacao SET Departamento = 2 WHERE EspecializacaoID = 4;
+UPDATE Especializacao SET Departamento = 3 WHERE EspecializacaoID = 5;
+UPDATE Especializacao SET Departamento = 3 WHERE EspecializacaoID = 6;
+UPDATE Especializacao SET Departamento = 4 WHERE EspecializacaoID = 7;
+UPDATE Especializacao SET Departamento = 4 WHERE EspecializacaoID = 8;
+UPDATE Especializacao SET Departamento = 5 WHERE EspecializacaoID = 9;
+UPDATE Especializacao SET Departamento = 5 WHERE EspecializacaoID = 10;
+UPDATE Especializacao SET Departamento = 6 WHERE EspecializacaoID = 11;
+UPDATE Especializacao SET Departamento = 6 WHERE EspecializacaoID = 12;
+UPDATE Especializacao SET Departamento = 7 WHERE EspecializacaoID = 13;
+UPDATE Especializacao SET Departamento = 7 WHERE EspecializacaoID = 14;
+UPDATE Especializacao SET Departamento = 8 WHERE EspecializacaoID = 15;
+UPDATE Especializacao SET Departamento = 8 WHERE EspecializacaoID = 16;
+UPDATE Especializacao SET Departamento = 9 WHERE EspecializacaoID = 17;
+UPDATE Especializacao SET Departamento = 9 WHERE EspecializacaoID = 18;
+UPDATE Especializacao SET Departamento = 10 WHERE EspecializacaoID = 19;
+UPDATE Especializacao SET Departamento = 10 WHERE EspecializacaoID = 20;
+UPDATE Especializacao SET Departamento = 11 WHERE EspecializacaoID = 21;
+UPDATE Especializacao SET Departamento = 11 WHERE EspecializacaoID = 22;
+UPDATE Especializacao SET Departamento = 12 WHERE EspecializacaoID = 23;
+UPDATE Especializacao SET Departamento = 12 WHERE EspecializacaoID = 24;
+UPDATE Especializacao SET Departamento = 13 WHERE EspecializacaoID = 25;
+UPDATE Especializacao SET Departamento = 13 WHERE EspecializacaoID = 26;
+UPDATE Especializacao SET Departamento = 14 WHERE EspecializacaoID = 27;
+UPDATE Especializacao SET Departamento = 14 WHERE EspecializacaoID = 28;
+UPDATE Especializacao SET Departamento = 15 WHERE EspecializacaoID = 29;
+UPDATE Especializacao SET Departamento = 15 WHERE EspecializacaoID = 30;
+UPDATE Especializacao SET Departamento = 16 WHERE EspecializacaoID = 31;
+UPDATE Especializacao SET Departamento = 16 WHERE EspecializacaoID = 32;
+UPDATE Especializacao SET Departamento = 17 WHERE EspecializacaoID = 33;
+UPDATE Especializacao SET Departamento = 17 WHERE EspecializacaoID = 34;
+UPDATE Especializacao SET Departamento = 18 WHERE EspecializacaoID = 35;
+UPDATE Especializacao SET Departamento = 18 WHERE EspecializacaoID = 36;
+UPDATE Especializacao SET Departamento = 19 WHERE EspecializacaoID = 37;
+UPDATE Especializacao SET Departamento = 19 WHERE EspecializacaoID = 38;
+UPDATE Especializacao SET Departamento = 20 WHERE EspecializacaoID = 39;
+UPDATE Especializacao SET Departamento = 20 WHERE EspecializacaoID = 40;
+UPDATE Especializacao SET Departamento = 21 WHERE EspecializacaoID = 41;
+UPDATE Especializacao SET Departamento = 21 WHERE EspecializacaoID = 42;
+UPDATE Especializacao SET Departamento = 22 WHERE EspecializacaoID = 43;
+UPDATE Especializacao SET Departamento = 22 WHERE EspecializacaoID = 44;
+UPDATE Especializacao SET Departamento = 23 WHERE EspecializacaoID = 45;
+UPDATE Especializacao SET Departamento = 23 WHERE EspecializacaoID = 46;
+UPDATE Especializacao SET Departamento = 24 WHERE EspecializacaoID = 47;
+UPDATE Especializacao SET Departamento = 24 WHERE EspecializacaoID = 48;
+UPDATE Especializacao SET Departamento = 1 WHERE EspecializacaoID = 49;
+UPDATE Especializacao SET Departamento = 2 WHERE EspecializacaoID = 50;
+
+
 
 -- Admission
 INSERT INTO Admissao (AdmissaoID, Data, Urgencia, Prioridade, Paciente) VALUES (1, "2002/09/30 06:40:13", 1, 7, 68);
