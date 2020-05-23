@@ -231,7 +231,7 @@ CREATE TABLE Internamento (
             REFERENCES Evento (EventoID)
                 ON UPDATE CASCADE
                 ON DELETE RESTRICT,
-        CONSTRAINT InternamentoEstado CHECK ((Ativo == 0 AND DataFim IS NULL) OR (Ativo == 1 AND DataFim IS NOT NULL))
+        CONSTRAINT InternamentoEstado CHECK ((Ativo == 1 AND DataFim IS NULL) OR (Ativo == 0 AND DataFim IS NOT NULL))
 );
 
 CREATE TABLE HorarioTrabalho (
