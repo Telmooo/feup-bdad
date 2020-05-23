@@ -9928,7 +9928,7 @@ INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES (2725,"Huntin
 INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES (2726, "descricao","1993-09-14 07:48:59" ,165, 168);
 INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES (2726,"Allergy",NULL,1);
 INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES (2727, "descricao","1970-10-10 19:39:01" ,160, 193);
-INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES (2727,"Rickets",NULL,0);
+INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES (2727,"Rickets","1977-12-21 00:12:43",0);
 INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES (2728, "descricao","2002-06-13 22:22:25" ,154, 198);
 INSERT INTO Internamento( EventoID, Motivo, DataFim, Ativo) VALUES (2728,"Osteoarthritis",NULL,1);
 INSERT INTO Evento(EventoID,Descricao, Data, Admissao, Quarto) VALUES (2729, "descricao","1980-08-11 17:26:30" ,87, 136);
