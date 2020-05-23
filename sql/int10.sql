@@ -19,14 +19,6 @@ AND PessoaID IN
 		(
 			SELECT EventoID FROM Consulta INNER JOIN Pessoa ON Consulta.Medico == Pessoa.PessoaID WHERE Nome = "Leonard Saunders"
 		)
-		AND Data = '2003/03/03 02:41:10'
+		AND Data = '2003-03-03 02:41:10'
 	)
 );
-
-/*
-  eventoID = 1860        
-  Medico = 426
-  evento.data = 2003/03/03 02:41:10 
-  paciente = 9
-  doenca = 215
-  */
