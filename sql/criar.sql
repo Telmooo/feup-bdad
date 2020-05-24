@@ -98,6 +98,7 @@ CREATE TABLE Horario (
         DiaSemana           TEXT    NOT NULL,
         HoraInicio          TEXT    NOT NULL,
         HoraFim             TEXT    NOT NULL,
+        CONSTRAINT HorarioIgual UNIQUE(DiaSemana, HoraInicio, HoraFim),
         CONSTRAINT HorarioDatas CHECK (HoraInicio < HoraFim)
 );
 

@@ -15,7 +15,7 @@ CREATE VIEW OcorrenciaFemaleCounter AS
         	FROM Stats WHERE Sexo='F' GROUP BY DoencaID;
 
 CREATE VIEW OcorrenciaGSCounter AS
-    SELECT DoencaID, GrupoSanguineo, COUNT(*) as CounterGS
+    SELECT DoencaID, GrupoSanguineo, COUNT(*) AS CounterGS
         FROM Stats GROUP BY DoencaID, GrupoSanguineo;
 
 CREATE VIEW OcorrenciaFemaleAvgAge AS
@@ -39,14 +39,14 @@ SELECT
 FROM (
     (SELECT DISTINCT DoencaID, Nome, Descricao FROM Stats)
     NATURAL JOIN (
-                    SELECT DoencaID, COUNT(*) as CounterOcorrencia
+                    SELECT DoencaID, COUNT(*) AS CounterOcorrencia
                         FROM (Ocorrencia INNER JOIN Doenca ON Ocorrencia.Doenca=Doenca.DoencaID) GROUP BY DoencaID
                  )
     NATURAL JOIN (
                     SELECT DoencaID, CounterFemale
                         FROM OcorrenciaFemaleCounter
                     UNION
-                    SELECT DoencaID, 0 as CounterFemale
+                    SELECT DoencaID, 0 AS CounterFemale
                         FROM Stats
                             WHERE DoencaID NOT IN (SELECT DoencaID FROM OcorrenciaFemaleCounter)
                  )
