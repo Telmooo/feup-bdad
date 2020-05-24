@@ -765,10 +765,20 @@ A quarta interrogação lista os meses do ano e o número de admissões de pacie
 
 Operadores usados: \emph{SELECT}, \emph{COUNT}, \emph{DISTINCT}, \emph{AS}, \emph{SUBSTR}, \emph{FROM}, \emph{GROUP BY}.
 
-\section{Médico atribuido a cada consultório}
+\section{Médico atribuído a cada consultório}
 A quinta interrogação lista os médicos atribuídos a cada consultório.
 
 Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{WHERE}, \emph{JOIN}, \emph{ORDER BY}.
+
+\section{Meses mais frequentemente correspondentes ao mês com mais urgências do ano}
+A sexta interrogação lista os meses que mais vezes corresponderam ao mês com mais urgências de um determinado ano.
+
+Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{WHERE}, \emph{CREATE VIEW}, \emph{AS}, \emph{COUNT}, \emph{MAX}, \emph{GROUP BY}, \emph{DROP VIEW}.
+
+\section{Pacientes que tiveram consulta com o responsável de cada departamento}
+A sétima interrogação lista os pacientes que tiveram consulta com o médico responsável por cada departamento, ordenados por ordem alfabética de nome e, em caso de empate, por ordem alfabética de departamento.
+
+Operadores usados: \emph{SELECT}, \emph{DISTINCT}, \emph{FROM}, \emph{AS}, \emph{NATURAL JOIN}, \emph{JOIN}, \emph{WHERE}, \emph{AND}, \emph{ORDER BY}.
 
 \section{Médicos mais velhos de cada departamento}
 A oitava interrogação lista os médicos mais velhos de cada departamento ordenados por ordem alfabética.
@@ -792,16 +802,31 @@ Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{WHERE}, \emph{IN}, \emph{IN
 \chapter[Triggers][Triggers]{Triggers} \label{\thechapter}
 
 \section{Validar datas de ocorrências}
-Antes de uma inserção ou antes de uma atualização de uma ocorrência na base de dados deve ser verificado se a data de ínicio da ocorrência é após o nascimento da pessoa em causa.
+Antes de uma inserção ou antes de uma atualização de uma ocorrência na base de dados deve ser verificado se a data de início da ocorrência é após o nascimento da pessoa em causa.
 
-Assim este trigger involve a criação de dois triggers, um que age antes de uma inserção na tabela \emph{Ocorrencia} e outro que age antes de uma atualização na tabela já citada.
+Assim este trigger envolve a criação de dois triggers, um que age antes de uma inserção na tabela \emph{Ocorrencia} e outro que age antes de uma atualização na tabela já citada.
 
 No ficheiro para verificar o gatilho (\textit{gatilho1\_verifica.sql}) é inserido um paciente novo para ser a cobaia, além de uma doença nova experimental.
 
-Após isso é mostrado a tabela de ocorrências antes de ser feita qualquer inserção ou atualização (para simplicidade é só mostrado ocorrências com ID maior que 450000000, mostrando assim uma tabela vazia). De seguida, é tentada uma inserção na tabela de ocorrências com uma data de ínicio antes do nascimento da cobaia, de modo a verificar que o trigger bloqueia essa ação, é então mostrada a tabela de ocorrências após a tentativa de inserção, podendo verificar-se que mantém-se igual à anterior.
+Após isso é mostrado a tabela de ocorrências antes de ser feita qualquer inserção ou atualização (para simplicidade é só mostrado ocorrências com ID maior que 450000000, mostrando assim uma tabela vazia). De seguida, é tentada uma inserção na tabela de ocorrências com uma data de início antes do nascimento da cobaia, de modo a verificar que o trigger bloqueia essa ação, é então mostrada a tabela de ocorrências após a tentativa de inserção, podendo verificar-se que mantém-se igual à anterior.
 
-Agora, será feita uma outra tentativa de inserção da mesma ocorrência mas agora com uma data de ínicio após o nascimento da cobaia, verificando-se assim que o trigger não bloqueia a operação e os valores são inseridos, podendo estes ser verificados na tabela que será mostrada após esta segunda tentativa de inserção.
+Agora, será feita uma outra tentativa de inserção da mesma ocorrência mas agora com uma data de início após o nascimento da cobaia, verificando-se assim que o trigger não bloqueia a operação e os valores são inseridos, podendo estes ser verificados na tabela que será mostrada após esta segunda tentativa de inserção.
 
-Por último, assumindo que a segunda tentativa de inserção terminou em sucesso ocorre uma tentativa de atualização da data de ínicio da ocorrência inserida, de modo a que a data seja antes do nascimento da cobaia, deve verificar-se que o trigger bloqueará tal operação e não ocorrerá nenhuma modificação, podendo o resultado ser verificado na tabela que será apresentada após esta última tentativa.
+Por último, assumindo que a segunda tentativa de inserção terminou em sucesso ocorre uma tentativa de atualização da data de início da ocorrência inserida, de modo a que a data seja antes do nascimento da cobaia, deve verificar-se que o trigger bloqueará tal operação e não ocorrerá nenhuma modificação, podendo o resultado ser verificado na tabela que será apresentada após esta última tentativa.
+
+\section{Validar data de fim de internamento a partir de data de evento}
+Antes de uma inserção ou atualização de um Internamento, deve ser verificado se a data de fim do Internamento é superior (posterior) à data do Evento correspondente.
+
+Esta restrição corresponde portanto à criação de dois gatilhos, um que age antes de uma inserção e outro que age antes de uma atualização, ambos sobre a tabela \emph{Internamento}.
+
+No ficheiro para verificar o gatilho (\textit{gatilho2\_verifica.sql}) são inseridos dois Eventos e respetivos Internamentos (EventoID's 2750 e 2751), um para servir de "controlo", cujo Internamento tem data de fim superior à do Evento, e outro para ativar o gatilho, cujo Internamento tem data de fim inferior à do Evento.
+
+Após as inserções, é mostrada a tabela correspondente ao \textit{Natural Join} de Evento e Internamento a partir do EventoID 2741 (na qual apenas foi inserido o primeiro Internamento - 2750 -, enquanto o segundo - 2751 - foi bloqueado).
+
+Para o segundo gatilho, tenta alterar-se a data de fim do Internamento previamente introduzido, cujo valor original era "1989-12-10 00:00:02", para "1989-12-10 00:00:03", a modo de controlo, sendo esta ação permitida. Posteriormente, uma vez que a data do Evento correspondente é "1989-12-10 00:00:01", tenta alterar-se a data de Fim do Internamento para "1989-12-10 00:00:00", ação que é bloqueada pelo gatilho.
+
+Para confirmar estas alterações, é mostrada a tabela a partir do EventoID 2741, na qual aparece a data de fim do Internamento correspondente ao controlo ("1989-12-10 00:00:03"), permitindo a verificação do funcionamento do segundo gatilho.
+
+\textbf{Nota:} Para todas as tabelas apresentadas nestes dois gatilhos, são apresentadas apenas as colunas EventoID, Data e DataFim, para mais fácil visualização dos dados.
 
 \end{document}
