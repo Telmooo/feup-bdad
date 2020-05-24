@@ -147,8 +147,7 @@ CREATE TABLE Admissao (
 CREATE TABLE Doenca (
         DoencaID            INTEGER CONSTRAINT DoencaPK PRIMARY KEY,
         Nome                TEXT    NOT NULL UNIQUE,
-        Descricao           TEXT    NOT NULL,
-        Sintomas            TEXT    NOT NULL
+        Descricao           TEXT    NOT NULL
 );
 
 CREATE TABLE Ocorrencia (

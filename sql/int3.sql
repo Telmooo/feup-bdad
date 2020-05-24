@@ -3,7 +3,7 @@
 .nullvalue NULL
 
 CREATE VIEW Stats AS
-    SELECT DoencaID, DataInicio, DataFim, Doenca.Nome, Descricao, Sintomas, GrupoSanguineo, Sexo, DataNascimento
+    SELECT DoencaID, DataInicio, DataFim, Doenca.Nome, Descricao, GrupoSanguineo, Sexo, DataNascimento
         FROM (
             Ocorrencia
             INNER JOIN Doenca ON Ocorrencia.Doenca=Doenca.DoencaID

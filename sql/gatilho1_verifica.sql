@@ -9,8 +9,8 @@ INSERT INTO Pessoa (PessoaID, NumIdentificacao, Nome, Morada, Telefone, NumeroBe
             VALUES (167543, 123123123123, "Subject A", "Doll House", 987987987987, 456456456, "F", "2000-10-12 00:00:00");
 INSERT INTO Paciente (PessoaID, GrupoSanguineo) VALUES (167543, "O+");
 
-INSERT INTO Doenca (DoencaID, Nome, Descricao, Sintomas)
-            VALUES (123123123, "Doença Teste", "Teste", "Testing");
+INSERT INTO Doenca (DoencaID, Nome, Descricao)
+            VALUES (123123123, "Doença Teste", "Teste");
 
 .print Verify that it fails to add with date before born
 .print BEFORE
