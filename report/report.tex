@@ -773,6 +773,35 @@ Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{WHERE}, \emph{JOIN}, \emph{
 \section{Médicos mais velhos de cada departamento}
 A oitava interrogação lista os médicos mais velhos de cada departamento ordenados por ordem alfabética.
 
-Operadores usados: \emph{SELECT}, \emph{MIN}, \emph{AS}, \emph{FROM}, \emph{INNER JOIN}, \emph{ON}, \emph{GROUP BY}, \emph{ORDER BY}
+Operadores usados: \emph{SELECT}, \emph{MIN}, \emph{AS}, \emph{FROM}, \emph{INNER JOIN}, \emph{ON}, \emph{GROUP BY}, \emph{ORDER BY}.
+
+\section{Departamento mais ativo em intervenções em mulheres}
+A nona interrogação mostra qual o departamento que mais realizou intervenções em mulheres.
+
+Operadores usados: \emph{SELECT}, \emph{AS}, \emph{COUNT}, \emph{FROM}, \emph{INNER JOIN}, \emph{ON}, \emph{WHERE}, \emph{IN}, \emph{UNION}, \emph{GROUP BY}, \emph{ORDER BY DESC}, \emph{LIMIT}.
+
+\section{Pacientes possivelmente em risco numa epidemia}
+A décima interrogação lista os pacientes que tiveram uma certa doença e que tiveram uma consulta com um certo médico num certo dia, isto pode ser útil para identificar possíveis casos de contágio de uma doença numa epidemia.
+
+Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{WHERE}, \emph{IN}, \emph{INNER JOIN}, \emph{ON}, \emph{AND}.
+
+\newpage
+%----------------------------------------------------------------------------------------
+%	CHAPTER 7 - Triggers
+%----------------------------------------------------------------------------------------
+\chapter[Triggers][Triggers]{Triggers} \label{\thechapter}
+
+\section{Validar datas de ocorrências}
+Antes de uma inserção ou antes de uma atualização de uma ocorrência na base de dados deve ser verificado se a data de ínicio da ocorrência é após o nascimento da pessoa em causa.
+
+Assim este trigger involve a criação de dois triggers, um que age antes de uma inserção na tabela \emph{Ocorrencia} e outro que age antes de uma atualização na tabela já citada.
+
+No ficheiro para verificar o gatilho (\textit{gatilho1\_verifica.sql}) é inserido um paciente novo para ser a cobaia, além de uma doença nova experimental.
+
+Após isso é mostrado a tabela de ocorrências antes de ser feita qualquer inserção ou atualização (para simplicidade é só mostrado ocorrências com ID maior que 450000000, mostrando assim uma tabela vazia). De seguida, é tentada uma inserção na tabela de ocorrências com uma data de ínicio antes do nascimento da cobaia, de modo a verificar que o trigger bloqueia essa ação, é então mostrada a tabela de ocorrências após a tentativa de inserção, podendo verificar-se que mantém-se igual à anterior.
+
+Agora, será feita uma outra tentativa de inserção da mesma ocorrência mas agora com uma data de ínicio após o nascimento da cobaia, verificando-se assim que o trigger não bloqueia a operação e os valores são inseridos, podendo estes ser verificados na tabela que será mostrada após esta segunda tentativa de inserção.
+
+Por último, assumindo que a segunda tentativa de inserção terminou em sucesso ocorre uma tentativa de atualização da data de ínicio da ocorrência inserida, de modo a que a data seja antes do nascimento da cobaia, deve verificar-se que o trigger bloqueará tal operação e não ocorrerá nenhuma modificação, podendo o resultado ser verificado na tabela que será apresentada após esta última tentativa.
 
 \end{document}
