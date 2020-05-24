@@ -62,7 +62,9 @@ FROM (
                 )
     NATURAL JOIN (
                     SELECT DoencaID, SUM(julianday(DataFim)-julianday(DataInicio))/(COUNT(*)) AS AvgDurationDays
-                        FROM Stats GROUP BY DoencaID
+                        FROM Stats
+                            WHERE DataFim IS NOT NULL
+                                GROUP BY DoencaID
                 )
     NATURAL JOIN (
                     SELECT DoencaID, AvgFemaleAge
