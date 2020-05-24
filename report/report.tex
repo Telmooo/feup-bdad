@@ -768,7 +768,7 @@ Operadores usados: \emph{SELECT}, \emph{COUNT}, \emph{DISTINCT}, \emph{AS}, \emp
 \section{Médico atribuído a cada consultório}
 A quinta interrogação lista os médicos atribuídos a cada consultório.
 
-Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{WHERE}, \emph{JOIN}, \emph{ORDER BY}.
+Operadores usados: \emph{SELECT}, \emph{FROM}, \emph{ON}, \emph{JOIN}, \emph{ORDER BY}.
 
 \section{Meses mais frequentemente correspondentes ao mês com mais urgências do ano}
 A sexta interrogação lista os meses que mais vezes corresponderam ao mês com mais urgências de um determinado ano.
@@ -828,5 +828,22 @@ Para o segundo gatilho, tenta alterar-se a data de fim do Internamento previamen
 Para confirmar estas alterações, é mostrada a tabela a partir do EventoID 2741, na qual aparece a data de fim do Internamento correspondente ao controlo ("1989-12-10 00:00:03"), permitindo a verificação do funcionamento do segundo gatilho.
 
 \textbf{Nota:} Para todas as tabelas apresentadas nestes dois gatilhos, são apresentadas apenas as colunas EventoID, Data e DataFim, para mais fácil visualização dos dados.
+
+\section{Validar datas de consultas}
+
+Antes da inserção ou atualização de uma Consulta é necessário verificar se neste horário o Medico já possui outra Consulta.
+
+Para isso são criados dois gatilhos, um antes da inserção de Consulta e outro na atualização de Evento. Já que Consulta não possui a informação da data, mas sim evento.
+
+Logo, quando se cria uma Consulta nova, verifica-se a data do Evento e o Medico associado à Consulta. Se este Medico já possuir consultas no horário deste evento, a inserção é invalidada.
+
+Já quanto à atualização, verifica-se no Evento a data, e na Consulta que está associada ao Evento o Medico, impedindo da mesma maneira a alteração.
+
+No ficheiro \textit{gatilho3\_verifica.sql} primeiro cria-se um Evento com uma data inválida, e ao criar uma Consulta associada a este Evento o erro ocorre.
+Depois cria-se um Evento com data válida, e não há erro.
+
+Posteriormente, faz-se uma tentativa de atualização de um Evento já associado a uma Consulta, e o valor inserido na data corresponde a uma data que já possui uma outra Consulta com o mesmo Medico. Por fim faz-se uma atualização para uma data disponível.
+
+Entre todas as etapas acima enumeradas há \textit{SELECT statements} mostrando o funcionamento de cada uma.
 
 \end{document}
