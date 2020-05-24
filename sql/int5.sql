@@ -3,8 +3,7 @@
 .nullvalue NULL
 
 SELECT Nome, Consultorio
-    FROM (Pessoa
+    FROM Pessoa
 JOIN
-    Medico)
-        WHERE PessoaID=StaffID
-            ORDER BY Consultorio;
+    Medico ON (PessoaID=StaffID)
+        ORDER BY Consultorio;
