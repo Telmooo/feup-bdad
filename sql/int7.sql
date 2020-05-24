@@ -4,7 +4,7 @@
 
 SELECT DISTINCT Nome, NomeResponsavel, NomeDepartamento
     FROM ((SELECT NomeDepartamento, Paciente, Nome AS NomeResponsavel
-        FROM (((SELECT Departamento.Nome as NomeDepartamento, Admissao, Medico
+        FROM (((SELECT Departamento.Nome AS NomeDepartamento, Admissao, Medico
             FROM ((SELECT *
                 FROM (Evento
 NATURAL JOIN
