@@ -1,4 +1,4 @@
-PRAGMA foreign_keys=ON;
+PRAGMA foreign_keys=OFF;
 
 DROP TABLE IF EXISTS Pessoa;
 DROP TABLE IF EXISTS Staff;
